@@ -81,7 +81,7 @@ RUN cd /opt && \
     pipenv install numpy pandas jupyterlab cryptorandom openpyxl && \
     cd /opt/BoCo-RCV-RLA/SHANGRLA/2023 && \
     pipenv install numpy pandas jupyterlab cryptorandom openpyxl && \
-    cd /optBoCo-RCV-RLA/MVR && \
+    cd /opt/BoCo-RCV-RLA/MVR && \
     npm install
 
 ENTRYPOINT ["/usr/local/sbin/boco-startup.sh"]
