@@ -1,6 +1,19 @@
+# IRV Audit Assertion Generator
+This folder contains the necessary code to run the IRV audit assertion generator, and to create assertions to test based on contest cast vote records. 
+It is based on the work by Michelle Blom in https://github.com/michelleblom/audit-irv-cp, and specifically the raire-branch: https://github.com/michelleblom/audit-irv-cp/tree/raire-branch
+
+## Tool Usage Instructions
+* This tool should be run from the commandline of the docker container.
+* It expects that there is a volume mount presented at `/rcv-data/` with a `bccr` subfolder
+* There should be a RAIRE.txt file in the `/rcv-data/bccr` folderthat contains the RAIRE format CVR for the contest being audited
+* The assertions should be generated using the command:
+  `irvaudit -rep_ballots /rcv-data/bccr/RAIRE.txt -r 0.05 -agap 0.0 -alglog -simlog -json /rcv-data/bccr/bc-assertions.json`
+
+The original README content from that repository follows for reference purposes.
+
 ----------------------------------------------------------------------------
-RAIRE: Risk-limiting Audits for Instant Runoff vote Elections
-----------------------------------------------------------------------------
+
+## RAIRE: Risk-limiting Audits for Instant Runoff vote Elections
 
 We have adapted Philip Stark's comparison audits (for first past the 
 post elections) to IRV. The code in this repository is designed to be used for
@@ -37,9 +50,7 @@ chosen.  The assertions it produces can be used in an audit with any
 desired risk limit -- the audit will just involve more/fewer ballot 
 polls than estimated by the software. 
 
-----------------------------------------------------------------------------
-How to use this tool for generating an audit configuration (in JSON format).
-----------------------------------------------------------------------------
+## How to use this tool for generating an audit configuration (in JSON format).
 
 1. Compile (if using Linux, you can probably use the provided Makefile,
 otherwise you will likely need to write a custom Makefile).
