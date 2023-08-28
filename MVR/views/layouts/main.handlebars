@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Risk-Limiting Audit Manual Cast Vote Record Ballot Entry Tool</title>
+    <meta name="description" content="Risk-Limiting Audit Manual Cast Vote Record Ballot Entry Tool">
+    <link rel="stylesheet" type="text/css" href="/application.css"/>
+    <link rel="stylesheet" type="text/css" href="/cdn/toastr/toastr.css"/>
+    <link rel="stylesheet" type="text/css" href="/cdn/Bootstrap-3.3.7/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/cdn/DataTables-1.10.15/css/dataTables.bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/cdn/FixedHeader-3.1.2/css/fixedHeader.bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/cdn/Responsive-2.1.1/css/responsive.bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/cdn/font-awesome-4.7.0/css/font-awesome.css"/>
+    <link rel="stylesheet" type="text/css" href="/cdn/animate.css"/>
+
+    <style>
+        .navbar-brand>img {
+            margin-top:-5px;
+        }
+        .deleted_apps, .deleted_users, .fail {
+            /*background-color: pink;*/
+            text-decoration: line-through;
+            text-decoration-color: red;
+        }
+    </style>
+
+    <script src="/js/ballot-helper.js"></script>
+    <script src="/js/contest-helper.js"></script>
+    <script src="/js/helper.js"></script>
+
+    <script src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/cdn/toastr/toastr.js"></script>
+    <script type="text/javascript" src="/cdn/Bootstrap-3.3.7/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/cdn/DataTables-1.10.15/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="/cdn/DataTables-1.10.15/js/dataTables.bootstrap.js"></script>
+    <script type="text/javascript" src="/cdn/FixedHeader-3.1.2/js/dataTables.fixedHeader.js"></script>
+    <script type="text/javascript" src="/cdn/Responsive-2.1.1/js/dataTables.responsive.js"></script>
+    <script src="/bootbox/bootbox.min.js"></script>
+
+<style>
+.bgbranding { 
+    background: url("/img/Ballot_box_icon_color.png") no-repeat center center; 
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size: contain;
+    min-height: 700px;
+}
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/home">
+                    <img alt="ballot icon" src="/img/Ballot_box_icon_color.png" height="20">
+                </a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/home">Home</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="/mark-ballot"><i class="fa fa-check-circle"></i> Mark Ballot</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="/list-ballots"><i class="fa fa-list-ol"></i> List Ballots</a>
+                    </li>
+
+
+
+                    <li class="dropdown">
+                        <a href="/export-contest"><i class="fa fa-download"></i> Export Contest</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="/settings"><i class="fa fa-cogs"></i> Settings</a>
+                    </li>
+            </div><!--/.navbar-collapse -->
+        </div>
+    </nav>
+    <div class="container">
+        {{{body}}}
+    </div>
+    <footer class="page-footer">
+         {{ copyrightYear }}
+        <br/>
+        <a href="javascript:rla_info()"><img src="/img/Ballot_box_icon_color.png" border="0" width="100"></a>
+    </footer>
+</body>
+</html>

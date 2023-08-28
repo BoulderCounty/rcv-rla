@@ -1,0 +1,91 @@
+<div>
+    <h1><i class="fa fa-list-ol"></i> List Ballots</h1>
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title"><a data-toggle="collapse" href="#help-panel" aria-expanded="false" aria-controls="footwear"><span class="fa fa-question-circle"></span> Help</a></h3>
+    </div>
+    <div class="panel-body collapse" id="help-panel">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Purpose of Page</h3>
+            </div>
+            <div class="panel-body">
+                List the following ballot details:
+                <ul>
+                    <li>Number and list of ballots submitted for review</li>
+                    <li>Number and list of ballots reviewed</li>
+                    <li>Number and list of ballots remaining to be reviewed</li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Target Audience</h3>
+            </div>
+            <div class="panel-body">
+                <p>Department of Elections staff</p>
+            </div>
+        </div>
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">Frequency</h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    <li>The page can be run as often as needed to review status of ballots entered to date for a given contest.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h2 class="panel-title" style="font-size: xx-large">
+            <a data-toggle="collapse" href="#panel-A" aria-expanded="false" aria-controls="footwear">{{ballots_entered}} Ballots Entered</a>
+        </h2>
+    </div>
+    <div class="panel-body collapse" id="panel-A">
+        <ol>
+            {{#each ballots_entered_json}}
+                <li>
+                    {{this}}
+                </li>
+            {{/each}}
+        </ol>
+    </div>
+</div>
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h2 class="panel-title" style="font-size: xx-large">
+            <a data-toggle="collapse" href="#panel-B" aria-expanded="false" aria-controls="footwear">{{ballots_reviewed}} Ballots Reviewed</a>
+        </h2>
+    </div>
+    <div class="panel-body collapse" id="panel-B">
+        <ol>
+            {{#each ballots_reviewed_json}}
+                <li>
+                    {{this}}
+                </li>
+            {{/each}}
+        </ol>
+    </div>
+</div>
+<div class="panel panel-warning">
+    <div class="panel-heading">
+        <h2 class="panel-title" style="font-size: xx-large">
+            <a data-toggle="collapse" href="#panel-C" aria-expanded="false" aria-controls="footwear">{{ballots_remaining}} Ballots Remaining to be Reviewed</a>
+        </h2>
+    </div>
+    <div class="panel-body collapse" id="panel-C">
+        <ol>
+            {{#each ballots_remaining_json}}
+                <li>
+                    {{this}}
+                </li>
+            {{/each}}
+        </ol>
+    </div>
+</div>

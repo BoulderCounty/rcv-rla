@@ -1,0 +1,66 @@
+<div>
+    <h1><i class="fa fa-upload"></i> Load Contest</h1>
+    {{#if message}}
+        <div class="alert alert-info">
+            <h1><i class="fa fa-info-circle"></i> {{ message }}</h1>
+        </div>
+    {{/if }}
+</div>
+
+<h2 class="alert alert-warning"><i class="fa fa-exclamation-circle"></i> Confirm the new contest</h2>
+
+<h4 class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> Note! Creating a new contest will end any contest already started.</h4>
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title"><span class="fa fa-file"></span> Contest <code>{{upload_json_name}}</code></h3>
+    </div>
+    <div class="panel-body">
+        <pre id="upload_json"></pre>
+    </div>
+</div>
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title"><span class="fa fa-file"></span> Ballots <code>{{upload_csv_name}}</code> converted to JSON</h3>
+    </div>
+    <div class="panel-body">
+        <pre id="upload_csv"></pre>
+    </div>
+</div>
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title"><span class="fa fa-file"></span> Ballot ID List</h3>
+    </div>
+    <div class="panel-body">
+        <pre id="ballots_json"></pre>
+    </div>
+</div>
+
+<div style="margin-bottom:20px">
+    <form method='post' name="contest-confirm-form" id="contest-confirm-form" action="/load-contest/confirmed/">
+        <input type="hidden" name="upload_json_name" value="{{upload_json_name}}">
+        <input type="hidden" name="ballots_json" value="{{ballots_json}}">
+        <button type="submit" class="btn btn-success btn-lg fa fa-arrow-right"> Create Contest</button>
+    </form>
+</div>
+
+<script>
+// ===========================================================
+// Initial page load
+// ===========================================================
+$(function(){
+    var upload_json = {{{json upload_json}}}
+    var upload_string = JSON.stringify(upload_json)
+    $("#upload_json").append(upload_string)
+
+    var upload_csv = {{{json upload_csv}}}
+    var upload_csv_string = JSON.stringify(upload_csv)
+    $("#upload_csv").append(upload_csv_string)
+
+    var ballots_json = {{{json ballots_json}}}
+    var ballots_json_string = JSON.stringify(ballots_json)
+    $("#ballots_json").append(ballots_json_string)
+})
+</script>

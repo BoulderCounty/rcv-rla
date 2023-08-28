@@ -1,0 +1,97 @@
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+.small_image_container {
+    width:60px; 
+    height:60px; 
+}
+.small_image_border {
+    padding:4px; 
+    width:50px; 
+    height:50px; 
+    border:1px solid #ccc; 
+    border-radius: 16px;
+    display: block;
+}
+
+.checkbox-oval {position: relative;}
+.checkbox-oval label {
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 28px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 40px;
+}
+.checkbox-oval input[type="checkbox"] {visibility: hidden;}
+.checkbox-oval input[type="checkbox"]:checked + label {
+  background-color: #202828;
+  border-color: #202828;
+}
+
+.text-right {
+    text-align:right;
+}
+.padding20 {
+    padding: 20px;
+}
+.corner5 {
+    padding: 20px;
+    border:1px solid #ccc;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+.corner10 {
+    padding: 20px;
+    border:1px solid #ccc;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+.corner20 {
+    padding: 20px;
+    border:1px solid #ccc;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+}
+.corner50 {
+    padding: 30px;
+    border:1px solid #ccc;
+    border-radius: 50px;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+}
+.border1 {
+    border:1px solid black;
+}
+.padding2 {
+    padding: 2px;
+}
+.margin2 {
+    margin: 2px;
+}
+.radius5 {
+    border-radius: 5px;
+    padding: 2px;
+}
+.page-footer {
+  padding: 40px 0;
+  color: #999;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-top: 1px solid #e5e5e5;
+}
+.page-footer p:last-child {
+  margin-bottom: 0;
+}
+
+.text-bold {
+    font-weight: bold;
+}

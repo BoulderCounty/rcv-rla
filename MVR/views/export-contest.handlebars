@@ -1,0 +1,106 @@
+<div>
+    <h1><i class="fa fa-download"></i> Export Contest</h1>
+    {{#if message}}
+        <div class="alert alert-info">
+            <h1><i class="fa fa-info-circle"></i> {{ message }}</h1>
+        </div>
+    {{/if }}
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title"><a data-toggle="collapse" href="#help-panel" aria-expanded="false" aria-controls="footwear"><span class="fa fa-question-circle"></span> Help</a></h3>
+    </div>
+    <div class="panel-body collapse" id="help-panel">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Purpose of Page</h3>
+            </div>
+            <div class="panel-body">
+                Export transformed ballots to JSON file for loading into next tool of the audit process.
+            </div>
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Target Audience</h3>
+            </div>
+            <div class="panel-body">
+                Election administrator
+            </div>
+        </div>
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">Frequency</h3>
+            </div>
+            <div class="panel-body">
+                Run one time (for the pilot) or once per contest (in future elections)
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-info" style="margin-top:10px">
+    <div class="panel-heading">
+        <h3 class="panel-title"><span class="fa fa-info-circle"></span> Contest</h3>
+    </div>
+    <div class="panel-body">
+       <div id="contest_details">{{contest_details}}</div>
+    </div>
+</div>
+
+<div class="panel panel-info" style="margin-top:10px">
+    <div class="panel-heading">
+        <h3 class="panel-title"><span class="fa fa-info-circle"></span> Candidates</h3>
+    </div>
+    <div class="panel-body">
+       <div id="candidate_list">{{candidate_list}}</div>
+    </div>
+</div>
+
+<div class="panel panel-info" style="margin-top:10px">
+    <div class="panel-heading">
+        <h3 class="panel-title"><span class="fa fa-info-circle"></span> List of all ballots to be reviewed</h3>
+    </div>
+    <div class="panel-body">
+       <div id="ballot_ids_list">{{ballot_ids_list}}</div>
+    </div>
+</div>
+
+<div class="panel panel-info" style="margin-top:10px">
+    <div class="panel-heading">
+        <h3 class="panel-title"><span class="fa fa-info-circle"></span> Contents of ballots reviewed so far</h3>
+    </div>
+    <div class="panel-body">
+       <div id="ballots_list"></div>
+    </div>
+</div>
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title"><span class="fa fa-file"></span> <code>{{export_filename_json}}</code></h3>
+    </div>
+    <div class="panel-body">
+        <pre>
+{{#if export_data}}
+{{ json export_data }}
+{{/if }}
+        </pre>
+    </div>
+</div>
+
+<div style="margin-bottom:10px">
+    <a type="button" href="./output/{{export_filename_json}}" class="btn btn-success btn-lg fa fa-download" download="{{export_filename_json}}"> Download {{export_filename_json}}</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <a type="button" href="./output/{{export_filename_csv}}" class="btn btn-success btn-lg fa fa-download" download="{{export_filename_csv}}"> Download {{export_filename_csv}}</a>
+
+</div>
+
+<script>
+// ===========================================================
+// Initial page load
+// ===========================================================
+$(function(){
+    var ballots = {{{json ballot_contents_list}}}
+    $("#ballots_list").append(JSON.stringify(ballots))
+})
+</script>

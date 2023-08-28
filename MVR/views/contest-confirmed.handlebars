@@ -1,0 +1,70 @@
+<div>
+    <h1><i class="fa fa-upload"></i> Load Contest</h1>
+    {{#if message}}
+        <div class="alert alert-info">
+            <h1><i class="fa fa-info-circle"></i> {{ message }}</h1>
+        </div>
+    {{/if }}
+</div>
+
+<div class="alert alert-success">
+    <h2><i class="fa fa-upload"></i> Success loading and creating contest!</h2>
+</div>
+
+<div class="container">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title"><span class="fa fa-file"></span> Contest</h3>
+        </div>
+        <div class="panel-body">
+            <pre id="jsonContest"></pre>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="fa fa-file"></span> Candidates</h3>
+                </div>
+                <div class="panel-body">
+                    <pre id="jsonCandidates"></pre>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="fa fa-file"></span> Ballots</h3>
+                </div>
+                <div class="panel-body">
+                    <pre id="jsonBallots"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+Suggested next step:
+<div>
+    <a href="/mark-ballot" class="btn btn-info fa fa-check-circle" style="font-size:x-large; margin-bottom:20px"> Mark Ballot</a>
+</div>
+
+<script>
+// ===========================================================
+// Initial page load
+// ===========================================================
+$(function(){
+    var jsonContest = {{{json jsonContest}}}
+    var stringContest = JSON.stringify(jsonContest)
+    $("#jsonContest").append(stringContest);
+    
+    var jsonCandidateList = {{{json jsonCandidateList}}}
+    $("#jsonCandidates").append(jsonCandidateList)
+
+    var jsonBallotList = {{{json jsonBallots}}}
+    $("#jsonBallots").append(jsonBallotList)
+
+
+})
+</script>

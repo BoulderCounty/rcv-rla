@@ -1,0 +1,29 @@
+<div class="jumbotron bgbranding">
+    <div class="container corner50" style="background: rgba(255, 255, 255, .7);">
+
+        <h2><i class="fa fa-globe"></i> Please enter the passphrase.</h2>
+
+        <p class="bg-danger">{{ login_message }}</p>
+
+        <div class="container">
+            <form action="/login" method="POST">
+                <div class="row">
+                    <div class="col-xs-12 col-md-2 text-right">
+                        <label for="passphrase">Passphrase:</label>
+                    </div>
+                    <div class="col-xs-12 col-md-10">
+                        <input type="text" id="passphrase" name="passphrase" size="50"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-2">
+                        &nbsp;
+                    </div>
+                    <div class="col-xs-12 col-md-10">
+                        <button type="submit" id="submit-button" class="btn btn-warning btn-lg fa fa-arrow-right"> Enter</button>
+                    </div>
+                </div>
+            </form>
+        </div><!-- /container -->
+    </div><!-- /container -->
+</div> <!-- /jumbotron -->

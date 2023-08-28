@@ -1,0 +1,168 @@
+<div>
+    <h1><i class="fa fa-check-circle"></i> Mark Ballot</h1>
+    {{#if message}}
+        <div class="alert alert-info">
+            <h3><i class="fa fa-info-circle"></i> {{ message }}</h3>
+        </div>
+    {{/if }}
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title"><a data-toggle="collapse" href="#help-panel" aria-expanded="false" aria-controls="footwear"><span class="fa fa-question-circle"></span> Help</a></h3>
+    </div>
+    <div class="panel-body collapse" id="help-panel">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Purpose of Page</h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    <li>Reviewer #1 - Transfer <span class="text-bold">ballot id</span> and <span class="text-bold"><em>literal</em> ballot selections</span> from selected paper ballot.</li>
+                    <li>Reviewer #2 - Verify that values entered by <em>Reviewer #1</em> match the paper ballot. </li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Target Audience</h3>
+            </div>
+            <div class="panel-body">
+                <p>Department of Elections staff</p>
+            </div>
+        </div>
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">Frequency</h3>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    <li>The page is run once per ballot by two reviewers at the same computer.</li>
+                    <li>Multiple users on different computers can simultaneously enter ballots.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<form name="ballot-form" id="ballot-form" action="/ballots/submit-ballot/" method="POST">
+<div id="contest-name">
+    <span class="text-bold">Contest:</span> <span id="contest_name">{{contest_name}}</span>
+</div>
+<div id="ballot-panel" class="panel panel-warning">
+    <div class="panel-heading">
+        <div id="reviewer-1">
+            <h1>Reviewer #1 - Enter imprinted id and choices as marked on paper ballot</h1>
+        </div>
+        <div id="reviewer-2">
+            <h1>Reviewer #2 - Review and confirm (revise as needed)</h1>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div id="ballot-id-container" class="alert alert-warning">
+            <div class="row" style="font-size:large">
+                <div class="col-xs-4">
+                    <label for="imprinted_id">Imprinted ID:</label>
+                    <input type="text" name="imprinted_id" id="imprinted_id" value="{{ballot_prefix}}"/>
+                </div>
+                <div class="col-xs-8">
+                    <div id="dropdown-container">
+                        Select <em>Imprinted ID</em> from remaining list of <strong>{{ballots_remaining}}</strong>:
+                        <select id="imprinted_id_dropdown" name="imprinted_id_dropdown"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="ballot-container" class="alert alert-warning"></div>
+    </div>
+    <div class="panel-footer">
+        <div id="ballot-button-container" style="font-size:x-large">
+            <div class="row">
+                <div class="col-xs-4">
+                    <button type="button" id="not-on-ballot-button" class="btn btn-danger btn-lg fa fa-exclamation-triangle" onclick="contest_not_on_ballot()"> Contest Not On Ballot</button>
+                    <button type="button" id="no-consensus-button" class="btn btn-danger btn-lg fa fa-exclamation-triangle" onclick="no_consensus()"> No Consensus</button>
+                </div>
+                <div class="col-xs-4">
+                    <button type="button" id="edit-button"  class="btn btn-warning btn-lg fa fa-edit" onclick="edit_ballot()"> Revise Selections</button>
+                    <button type="button" id="reset-button" class="btn btn-default btn-lg fa fa-refresh" onclick="reset_ballot()"> Clear Ballot</button>
+                </div>
+                <div class="col-xs-4">
+                    <button type="button" id="submit-button" class="btn btn-warning btn-lg fa fa-arrow-right" onclick="submit_for_verification()"> Submit For Verification</button>
+                    <button type="button" id="verified-button" class="btn btn-success btn-lg fa fa-save" onclick="submit_ballot()"> Confirmed</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="json_preview">
+    Literal Ballot:<br/>
+    <textarea rows="5" cols="150" name="ballot_string" id="ballot_string" class="alert alert-warning"/></textarea>
+    <br/>
+    Counted Ballot:<br/>
+    <textarea rows="5" cols="150" name="ballot_string_calc" id="ballot_string_calc" class="alert alert-success"></textarea>
+</div>
+</form>
+
+<!-- Invalid Ballot ID Modal -->
+<div class="modal fade" id="invalidBallotModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Invalid Ballot ID</h4>
+            </div>
+            <div class="modal-body alert alert-danger">
+                <p>Please enter a valid ballot id (or select a ballot id from the dropdown).</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="candidates"></div>
+<div id="ballots"></div>
+<input type="hidden" name="contest_id">
+
+<script>
+// ===========================================================
+// Initial page load
+// ===========================================================
+$(function(){
+    // Disable form submit on enter via input box
+    $('form :input').on('keypress', function(e) {
+        return e.which !== 13
+    });
+    var contest_id = {{{contest_id}}}
+    $('input[name="contest_id"]').val(contest_id)
+
+    var candidates = {{{candidates}}}
+    //$("#candidates").append(JSON.stringify(candidates))
+    populate_ballot_checkboxes(candidates)
+
+    var ballots = {{{ballots}}}
+    //$("#ballots").append(JSON.stringify(ballots))
+
+    populate_ballot_dropdown(ballots)
+    layout_ballot()
+    update_json_preview()
+    // Set up listeners for ballot id text input and dropdown
+    // Change in spec: make imprinted_id text input. (Forcing user to use dropdown)
+    $("#imprinted_id").attr('disabled', 'disabled')
+    $("#imprinted_id").keyup(function(){
+        validate_imprinted_id($("#imprinted_id").val())
+        update_json_preview()
+    })
+    $('input:checkbox').change(function() {
+        update_json_preview()
+    })
+    $('#imprinted_id_dropdown').change(function() {
+        var selected_value = $('#imprinted_id_dropdown').val()
+        //console.log('selected_value', selected_value)
+        on_change_ballot_dropdown(selected_value)
+        validate_imprinted_id(selected_value)
+    })
+    // Hide JSON preview
+    $("#json_preview").addClass("hidden")
+})
+</script>

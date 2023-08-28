@@ -1,0 +1,96 @@
+<div>
+    <h1><i class="fa fa-cog"></i> Settings</h1>
+    {{#if message}}
+        <div class="alert alert-info">
+            <h1><i class="fa fa-info-circle"></i> {{ message }}</h1>
+        </div>
+    {{/if }}
+</div>
+
+<div style="font-size:x-large">
+    <div style="margin-bottom:10px">
+    </div>
+    <div style="margin-bottom:10px">
+    </div>
+    <div style="margin-bottom:10px">
+    </div>
+</div>
+
+<div class="container" style="font-size:x-large">
+    <div class="row" style="margin:16px"> 
+        <div class="col-sm-12">
+            <a href="/load-contest" class="btn btn-success fa fa-upload"> Load Contest</a>
+        </div>
+    </div>
+    <div class="row" style="margin:16px"> 
+        <form name="ballot_prefix_form" id="ballot_prefix_form" action="/settings/ballot_prefix/" method="POST">
+        <div class="col-sm-6 text-right">
+            Default ballot prefix in 'Mark Ballot' page:
+        </div>
+        <div class="col-sm-2">
+
+            <input type="text" name="ballot_prefix" id="ballot_prefix" value="{{ballot_prefix}}" size="10"/>
+        </div>
+        <div class="col-sm-4">
+            <button type="submit" class="btn btn-warning fa fa-arrow-right"> Submit new default ballot prefix</button>
+        </div>
+        </form>
+    </div>
+    <div class="row" style="margin:16px">
+        <div class="col-sm-12">
+            <form name="discard-all-ballots" id="discard-all-ballots" action="/ballots/discard-all-ballots/" method="POST">
+                <button type="button" class="btn btn-danger fa fa-trash" onclick="discard_all_ballots()"> Discard All Ballots</button>
+            </form>
+        </div>
+    </div>
+    <div class="row" style="margin:16px">
+        <div class="col-sm-6">
+            <form name="generate-random-ballots" id="generate-random-ballots" action="/settings/generate-random-ballots/" method="POST">
+                <button type="button" class="btn btn-info fa fa-random" onclick="generate_random_ballots()"> Generate Random Test Results</button>
+            </form>
+        </div>
+        {{#if mvr_random}}
+            <div style="margin-bottom:10px" class="col-sm-6">
+                <a type="button" href="/output/{{mvr_random}}" class="btn btn-info btn-lg fa fa-download" download="{{mvr_random}}"> Download {{mvr_random}}</a>
+            </div>
+        {{/if }}
+    </div>
+    <div class="row" style="margin:16px; display: none"> 
+        <form name="ballot_prefix_form" id="ballot_prefix_form" action="/settings/passphrase/" method="POST">
+        <div class="col-sm-3 text-right">
+            {{#if checkbox_require_passphrase}}
+                <input type="checkbox" name="checkbox_require_passphrase" checked="checked"> Require Passphrase
+            {{else}}
+                <input type="checkbox" name="checkbox_require_passphrase"> Require Passphrase
+            {{/if }}
+        </div>
+        <div class="col-sm-5">
+            <input type="text" name="passphrase" id="passphrase" value="{{passphrase}}" size="30"/>
+        </div>
+        <div class="col-sm-4">
+            <button type="submit" class="btn btn-warning fa fa-arrow-right"> Save changes</button>
+        </div>
+        </form>
+    </div>
+    <div class="row" style="margin-top:32px">
+        <div class="col-sm-12">
+            &nbsp;
+        </div>
+    </div>
+    <div class="row" style="margin:16px">
+        <div class="col-sm-12">
+            See also: <a href="/html/ConvertCVRToRAIRE.html" class="btn btn-success fa fa-share" target="_blank"> Convert CVR To RAIRE tool</a>
+        </div>
+    </div>
+    <div class="row" style="margin:16px">
+        <div class="col-sm-12">
+            See also: <a href="/html/ConvertCVRToTestingData.html" class="btn btn-success fa fa-share" target="_blank"> Convert CVR To Testing Data tool</a>
+        </div>
+    </div>
+
+    <div class="row" style="margin:16px">
+        <div class="col-sm-12">
+            <i class="fa fa-check-circle">&nbsp;</i><code>Known TO-DO: Add option to load branding/logo</code>
+        </div>
+    </div>
+</div><!-- /container -->

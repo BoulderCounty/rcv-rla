@@ -1,0 +1,122 @@
+<div>
+    <h1><i class="fa fa-upload"></i> Load Contest</h1>
+    {{#if message}}
+        <div class="alert alert-danger">
+            <h4><i class="fa fa-exclamation-circle"></i> {{ message }}</h4>
+        </div>
+    {{/if }}
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title"><a data-toggle="collapse" href="#help-panel" aria-expanded="false" aria-controls="footwear"><span class="fa fa-question-circle"></span> Help</a></h3>
+    </div>
+    <div class="panel-body collapse" id="help-panel">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Purpose of Page</h3>
+            </div>
+            <div class="panel-body">
+                Load contest details such as:
+                <ul>
+                    <li>Contest name</li>
+                    <li>Candidate names</li>
+                    <li>Unique candidate identifiers</li>
+                    <li>Candidate images</li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Target Audience</h3>
+            </div>
+            <div class="panel-body">
+                Election administrator
+            </div>
+        </div>
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">Frequency</h3>
+            </div>
+            <div class="panel-body">
+                Run one time (for the pilot) or once per contest (in future elections)
+            </div>
+        </div>
+    </div>
+</div>
+
+<form method='post' enctype="multipart/form-data" name="contest-form" id="contest-form" action="/load-contest/preview/">
+
+<div class="alert alert-info">
+    <label for="file_to_upload">Contest (JSON)</label>
+    <input type='file' name='contestants_upload' id='contestants_upload'>
+</div>
+
+<div class="alert alert-info">
+    <label for="file_to_upload">Ballots (CSV)</label>
+    <input type='file' name='ballots_upload' id='ballots_upload'>
+</div>
+
+<div>
+    <button type="submit" class="btn btn-success btn-lg fa fa-upload"> Upload Contest Details</button>
+</div>
+</form>
+
+<div class="panel panel-warning" style="margin-top:10px">
+    <div class="panel-heading">
+        <h3 class="panel-title"><span class="fa fa-file"></span> Structure and sample minimum requirements for uploaded <code>JSON</code> and <code>CSV</code> files</h3>
+    </div>
+    <div class="panel-body">
+        <div class="panel panel-warning" style="margin-top:10px">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span class="fa fa-file"></span> <code>contest.json</code></h3>
+            </div>
+            <div class="panel-body">
+<pre>
+{
+    "contests": [{
+        "description": "TEAM MASCOT",
+        "id": 333
+    }],
+    "candidates": [
+        {
+            "description": "ANGEL",
+            "id": 11,
+            "type": "Regular"
+        },
+        {
+            "description": "BEAR",
+            "id": 12,
+            "type": "Regular"
+        },
+        {
+            "description": "CARDINAL",
+            "id": 13,
+            "type": "Regular"
+        },
+        {
+            "description": "Write-in",
+            "id": 14,
+            "type": "WriteIn"
+        }
+    ]
+}
+</pre>
+            </div>
+        </div>
+        <div class="panel panel-warning" style="margin-top:10px">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span class="fa fa-file"></span> <code>ballots.csv</code></h3>
+            </div>
+            <div class="panel-body">
+<pre>
+cart,tray,tabulator,batch,ballot in batch,imprint,absolute ballot index
+3,1,99808,81,1,99808-81-1,1
+3,1,99808,81,61,99808-81-61,61
+3,3,99804,37,10,99804-37-10,1101
+2,4,99804,42,104,99804-42-104,2100
+</pre>
+            </div>
+        </div>
+    </div>
+</div>
