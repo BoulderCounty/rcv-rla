@@ -77,11 +77,11 @@ RUN cd /opt && \
     cd /opt/BoCo-RCV-RLA/IRV-RLA && \
     make && \
     mv irvaudit /usr/local/bin/ && \
-    cd /opt/bc-rcv-rla/SHANGRLA/2020 && \
+    cd /opt/BoCo-RCV-RLA/SHANGRLA/2020 && \
     pipenv install numpy pandas jupyterlab cryptorandom openpyxl && \
-    cd /opt/bc-rcv-rla/SHANGRLA/2023 && \
+    cd /opt/BoCo-RCV-RLA/SHANGRLA/2023 && \
     pipenv install numpy pandas jupyterlab cryptorandom openpyxl && \
-    cd /opt/bc-rcv-rla/MVR && \
+    cd /optBoCo-RCV-RLA/MVR && \
     npm install
 
 ENTRYPOINT ["/usr/local/sbin/boco-startup.sh"]
