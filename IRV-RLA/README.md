@@ -9,7 +9,7 @@ It is based on the work by Michelle Blom in https://github.com/michelleblom/audi
 * The assertions should be generated using the command:
   `irvaudit -rep_ballots /rcv-data/bccr/RAIRE.txt -r 0.05 -agap 0.0 -alglog -simlog -json /rcv-data/bccr/bc-assertions.json`
 
-The original README content from that repository follows for reference purposes.
+Excerpts from the original README from that repository follows for reference purposes. View that repository for complete instructions and test examples (with supporting test data).
 
 ----------------------------------------------------------------------------
 
@@ -99,30 +99,3 @@ each contest mentioned in the input data. The output log will indicate
 which contests an audit was generated for, and if any contests require 
 a full recount. For the latter contests, an audit configuration is not
 included in the JSON output.
-
-A concrete example you can run:
-
-./irvaudit -rep_ballots USIRV/Aspen_2009.raire -r 0.05  
-    -agap 0.0 -alglog -simlog -json Aspen_2009.json
-
-but you will probably find that it runs for longer than you expect - 
-the Aspen_2009 election was complex and close.  If it hasn't generated
-output in a reasonable time, try
-
-./irvaudit -rep_ballots USIRV/Aspen_2009.raire -r 0.05  
-    -agap 0.005 -alglog -simlog -json Aspen_2009.json
-
-and experiment with the tradeoff between getting the best assertions
-(low agap) and getting an answer faster (larger agap).
-
----------------------------------------------------------------------------
-Test Data
----------------------------------------------------------------------------
-
-In the folder SampleOutputs, I have run the above on each of the USIRV
-'reported' ballot data files in USIRV and placed the resulting JSON output. 
- 
-A concrete example for the 2019 San Francisco preliminary results is:
-./irvaudit -rep_ballots USIRV/SFDA_2019_Nov8Partial.raire -r 0.05 -agap 0.005 -alglog -simlog -json SFDA_2019_Nov8Partial.json
-
-which should match the equivalent file in USIRV. 
