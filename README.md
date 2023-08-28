@@ -1,1 +1,1 @@
-# Boulder County Ranked Choice Voting Risk Limiting Audit Process (2023)
+# Boulder County RCV RLA Process
