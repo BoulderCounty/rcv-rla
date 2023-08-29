@@ -27,6 +27,11 @@ The Boulder County 2023 Ranked Choice Voting (RCV) Risk Limiting Audit (RLA) pro
 
 The majority of the work product used to build this toolset is based on the efforts of the aforementioned individuals. See also the following paper detailing the process used for the 2019 San Francisco District Attorney Instant Runoff Vote: https://arxiv.org/pdf/2004.00235.pdf
 
+The County has received input and feedback from Dr. Blom and Dr. Teague during the County technology review and testing process. As a Colorado leader in using instant runoff voting (i.e. ranked choice voting), the County needs a viable process to perform a risk limiting audit in advance of broad RCV RLA tool availability in future elections, expected to be provided by the State. 
+
+Notably, the State already uses resources from Philip B. Stark, and cites his work on the Secretary of State’s Risk-Limiting Audit Resources page: https://www.sos.state.co.us/pubs/elections/VotingSystems/riskAuditResources.html. Additional resources provided by the Secretary of State, including Frequently Asked Questions (FAQs) can be be found here: https://www.sos.state.co.us/pubs/elections/RLA/faqs.html
+
+
 ### SHANGRLA Overview
 The process summary from the [SHANGRLA reference implementation used in 2019 for San Francisco](https://github.com/pbstark/SHANGRLA/edit/primaries/README.md) is included here to provide context on terminology and the approach (with minor modifications based on URL accessibility and formatting).
 
