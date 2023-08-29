@@ -1,4 +1,10 @@
-# Sets of Half-Average Nulls Generate Risk-Limiting Audits (SHANGRLA)
+# Important - Boulder County Note
+See the parent directory for summary info about SHANGRLA. This README is the original readme from this forked code, acquired from https://github.com/pbstark/SHANGRLA/tree/primaries
+
+===========================================================================
+
+
+## Sets of Half-Average Nulls Generate Risk-Limiting Audits (SHANGRLA)
 
 initial code by Michelle Blom, Andrew Conway, Philip B. Stark, Peter J. Stuckey and Vanessa Teague.   
 additional development by Amanda Glazer and Jake Spertus
@@ -25,7 +31,7 @@ We provide an open-source reference implementation and exemplar calculations in 
 
 ----------------------------------------------------
 
-## Step-by-step guide to San Francisco RLA pilots
+### Step-by-step guide to San Francisco RLA pilots
 
 ----------------------------------------------------
 
