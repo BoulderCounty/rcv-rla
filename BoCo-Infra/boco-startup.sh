@@ -35,3 +35,6 @@ echo " * [Option 1] Stop the session by killing the running process with Ctrl + 
 echo " * [Option 2] Disconnect from the ssession (but leave it running) with Ctrl + a, Ctrl + d"
 echo "Screen session logs started on container launch are written in the /rcv-data/consolel-log-<session_name>.log files as well."
 echo ""
+
+# Now start a shell for container persistence
+/bin/bash
