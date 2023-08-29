@@ -1,4 +1,5 @@
 # Boulder County RCV RLA Process
+_*** DRAFT NOTICE - All content on this page and in this repository should be considered draft that has not been reviewed or approved by authorized individuals at Boulder County ***_
 
 ## Table of Contents
 1. [Background, Theory, and Approach Justification](#id-section1)
@@ -7,6 +8,7 @@
 4. [Process for Performing a Risk Limiting Audit](#id-section4)
 
 <div id='id-section1'/>
+
 
 ## Background, Theory, and Approach Justification
 The Boulder County 2023 Ranked Choice Voting (RCV) Risk Limiting Audit (RLA) process is based on published work and code from leading researchers in the field of statistics and elections auditing:
@@ -27,9 +29,11 @@ The Boulder County 2023 Ranked Choice Voting (RCV) Risk Limiting Audit (RLA) pro
 
 The majority of the work product used to build this toolset is based on the efforts of the aforementioned individuals. See also the following paper detailing the process used for the 2019 San Francisco District Attorney Instant Runoff Vote: https://arxiv.org/pdf/2004.00235.pdf
 
-The County has received input and feedback from Dr. Blom and Dr. Teague during the County technology review and testing process. As a Colorado leader in using instant runoff voting (i.e. ranked choice voting), the County needs a viable process to perform a risk limiting audit in advance of broad RCV RLA tool availability in future elections, expected to be provided by the State. 
+The County has received input and feedback from Dr. Blom and Dr. Teague during the County technology review and testing process. As a Colorado leader in using instant runoff voting (i.e. ranked choice voting), Boulder County needs a viable process to perform a risk limiting audit in advance of broad RCV RLA tool availability in future elections, expected to be provided by the State. 
 
-Notably, the State already uses resources from Philip B. Stark, and cites his work on the Secretary of State’s Risk-Limiting Audit Resources page: https://www.sos.state.co.us/pubs/elections/VotingSystems/riskAuditResources.html. Additional resources provided by the Secretary of State, including Frequently Asked Questions (FAQs) can be be found here: https://www.sos.state.co.us/pubs/elections/RLA/faqs.html
+Notably, the Colorado Secretary of State cites resources from Philip B. Stark's work on the Secretary of State’s Risk-Limiting Audit Resources page: https://www.sos.state.co.us/pubs/elections/VotingSystems/riskAuditResources.html. Additional resources provided by the Secretary of State, including Frequently Asked Questions (FAQs) can be be found here: https://www.sos.state.co.us/pubs/elections/RLA/faqs.html. 
+
+In summary, Boulder County has performed reasonable due diligence in ensuring that resources, both individuals and code, used to establish an interim process for performing risk limiting audits for ranked choice voting are of high integrity, and consistent with the spirit and intent of risk-limiting audit objectives. 
 
 
 ### SHANGRLA Overview
