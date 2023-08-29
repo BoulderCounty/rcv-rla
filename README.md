@@ -6,14 +6,16 @@ ___
 
 ## Table of Contents
 1. [Background, Theory, Contributors, and Approach Justification](#id-section1)
-2. [Risk Limiting Audit Process Overview](#id-section3)
-3. [Tool and Repository Overview](#id-section3)
-4. [Detailed Process for Performing a Risk Limiting Audit](#id-section4)
+2. [SHANGRLA Overview](#id-section2)
+3. [Risk Limiting Audit Process Overview](#id-section3)
+4. [Tool and Repository Overview](#id-section4)
+5. [Detailed Process for Performing a Risk Limiting Audit](#id-section5)
+6. [General Security Notes and Considerations](#id-section6)
 
 <div id='id-section1'/>
 
 
-## Background, Theory, Contributors, and Approach Justification
+## 1. Background, Theory, Contributors, and Approach Justification
 The Boulder County 2023 Ranked Choice Voting (RCV) Risk Limiting Audit (RLA) process is based on published work and code from leading researchers in the field of statistics and elections auditing:
 
 * Philip B. Stark
@@ -40,8 +42,9 @@ Notably, the Colorado Secretary of State cites resources from Philip B. Stark's 
 
 In summary, Boulder County has performed reasonable due diligence in ensuring that resources, both individuals and code, used to establish an interim process for performing risk limiting audits for ranked choice voting are of high integrity, and consistent with the spirit and intent of risk-limiting audit objectives. 
 
+<div id='id-section2'/>
 
-### SHANGRLA Overview
+### 2. SHANGRLA Overview
 The process summary from the [SHANGRLA reference implementation used in 2019 for San Francisco](https://github.com/pbstark/SHANGRLA/edit/primaries/README.md) is included here to provide context on terminology and the approach (with minor modifications based on URL accessibility and formatting).
 
 >Sets of Half-Average Nulls Generate Risk-Limiting Audits (SHANGRLA)
@@ -60,9 +63,9 @@ contests with various election types including Range and Approval voting and Bor
 >
 >We provide an open-source reference implementation and exemplar calculations in Jupyter notebooks.
 
-<div id='id-section2'/>
+<div id='id-section3'/>
 
-## Risk Limiting Audit Process Overview
+## 3. Risk Limiting Audit Process Overview
 The general process for the risk limiting audit is as follows, and assumes that contest, candidate, CVR, and supporting manifest information is available.
 
 1. The CVR and supporting manifests are exported from the Dominion Voting System. 
@@ -76,19 +79,19 @@ The general process for the risk limiting audit is as follows, and assumes that 
 9. The measured risk based on generated assertions and the CVR and MVR data is used in conjunction with defined error and risk limit rates to determine if the RLA is deemed satisfied, or if recounts or expanded sampling are required.
 
 
-<div id='id-section3'/>
+<div id='id-section4'/>
 
-## Tool and Repository Overview
+## 4. Tool and Repository Overview
 The following tools are used to perform the Boulder County RCV RLA process. They are aggregated into a single repository for ease of change control and management, and incorporate customizations to the operation of the tools, but not the underlying statistical methods or procedures. Each link is to the folder containing the respective tool in the main branch of the repository used by the County. The Readme at each folder level provides links to the source repositories from which this code was acquired.
 1. [IRV Audit Assertion Generator](https://github.com/Rule4Inc/BoCo-RCV-RLA/tree/main/IRV-RLA)
 2. [Manual Vote Recorder](https://github.com/Rule4Inc/BoCo-RCV-RLA/tree/main/MVR)
 3. [SHANGRLA Notebook](https://github.com/Rule4Inc/BoCo-RCV-RLA/tree/main/SHANGRLA)
 
 
-<div id='id-section4'/>
+<div id='id-section5'/>
 
-## Detailed Process for Performing a Risk Limiting Audit
-### 1. Prerequisites
+## 5. Detailed Process for Performing a Risk Limiting Audit
+### 5.1. Prerequisites
 * This process requires that you have access to a service enabling you to run containers. Docker Desktop is suggested and is available here: https://www.docker.com/products/docker-desktop/
 * You should be comfortable running basic commands from a command line (following instructions)
 * You will need to designate a local folder to present data to the container. For example, create a folder under C:\ called rcv-data, and create a subfolder under c:\rcv-data called bccr. The subfolder is not required, but usefule for containing data ready for processing (whereas the rootl rcv-data folder may be used to handle temporary data, or not used at all.)
@@ -114,13 +117,13 @@ The following tools are used to perform the Boulder County RCV RLA process. They
         | ... |... |... | ... | ... |
 
 
-### 2. Activating the RLA Environment
-1. From a command line (e.g. `cmd.exe`), pull the current Docker container. Unless there are known changes to the container, this only has to be performed once. This command pulls the container image that is tagged "latest" (i.e. the most recently updated image in the repository):
+### 5.2. Activating the RLA Environment
+5.2.1. From a command line (e.g. `cmd.exe`), pull the current Docker container. Unless there are known changes to the container, this only has to be performed once. This command pulls the container image that is tagged "latest" (i.e. the most recently updated image in the repository):
 
     ```
     docker pull us-west3-docker.pkg.dev/rule4-container-registry/boco-rcv-rla/rcv-rla:latest
     ```
-2. Start the container (adjusting the local path `/c/rcv-data` if necessary based on where the local folder was created):
+5.2.2. Start the container (adjusting the local path `/c/rcv-data` if necessary based on where the local folder was created):
     
     ```
     docker run -itd --name bc-rla -p 127.0.0.1:8888:8888 -p 127.0.0.1:8887:8887 -v /c/rcv-data:/rcv-data/ us-west3-docker.pkg.dev/rule4-container-registry/boco-rcv-rla/rcv-rla
@@ -133,52 +136,57 @@ The following tools are used to perform the Boulder County RCV RLA process. They
     * `-p 127.0.0.1:8887:8887` : _ccept connections only on the Docker host's local interface on port 8887, and map to port 8887 in the container (used for the MVR Tool node.js application and CVR-to-RAIRE conversion tool)_
     * `-v /c/rcv-data:/rcv-data/` : _Mount the local folder /c/rcv-data (c:\rcv-data) to /rcv-data in the container_._
     * `us-west3-docker.pkg.dev/rule4-container-registry/boco-rcv-rla/rcv-rla` : _The container image to run (pulled in the previous step)_
-3. Connect to the terminal/shell to in preparation for using the irvaudit tool to create the assertions to test. If you named your conatiner something other than bc-rla, change the name as appropriate in the following command:
+5.2.3. Connect to the terminal/shell to in preparation for using the irvaudit tool to create the assertions to test. If you named your conatiner something other than bc-rla, change the name as appropriate in the following command:
 
     ```
     docker exec -it bc-rla /bin/bash
     ```
-4. Refresh local copies of code in the container from the main repository in the event the notebook or other files have been updated. Only do this once when starting the RLA process, otherwise your notebook (and an work underway) may be overwritten.
+5.2.4. Refresh local copies of code in the container from the main repository in the event the notebook or other files have been updated. Only do this once when starting the RLA process, otherwise your notebook (and an work underway) may be overwritten.
     ```
     cd /opt/BoCo-RCV-RLA
     git pull
     ```
 
-### 3. Create the RAIRE formatted CVR file
- 1. Navigate to http://localhost:8887/html/ConvertCVRToRAIREwithJSON.html
- 2. Load the four .json files from the Dominion Voting System that you placed in `c:\rcv-data\bccr`
- 3. Review the "_Then choose options on how to deal with some issues_" and "_Next, choose the ballot types you want to audit._" parameters and adjust if appropriate
- 4. Select the contest being audited by checking the appropriate checkbox
- 5. Copy the JSON text between the --------------- boundaries for the contest you are auditing. Place this in an empty notepad text file, or leave this browser tab open. You will insert this data into the notebook in a later step. Don't worry - if you lose this, you'll be able to regenerate it using steps 1-4 above.
- 6. Scroll to the bottom of the page, and click the `Download RAIRE format` link. Make a note of where this file is saved and move the file to `c:\rcv-data\bccr` -OR- choose to save it in `c:\rcv-data\bccr` if prompted. Name the file (or rename it if it automatically saves with an alternate name) as `RAIRE.txt`
+### 5.3. Create the RAIRE formatted CVR file
+ 5.3.1. Navigate to http://localhost:8887/html/ConvertCVRToRAIREwithJSON.html
+ 5.3.2. Load the four .json files from the Dominion Voting System that you placed in `c:\rcv-data\bccr`
+ 5.3.3. Review the "_Then choose options on how to deal with some issues_" and "_Next, choose the ballot types you want to audit._" parameters and adjust if appropriate
+ 5.3.4. Select the contest being audited by checking the appropriate checkbox
+ 5.3.5. Copy the JSON text between the --------------- boundaries for the contest you are auditing. Place this in an empty notepad text file, or leave this browser tab open. You will insert this data into the notebook in a later step. Don't worry - if you lose this, you'll be able to regenerate it using steps 5.3.1-5.3.4 above.
+ 5.3.6. Scroll to the bottom of the page, and click the `Download RAIRE format` link. Make a note of where this file is saved and move the file to `c:\rcv-data\bccr` -OR- choose to save it in `c:\rcv-data\bccr` if prompted. Name the file (or rename it if it automatically saves with an alternate name) as `RAIRE.txt`
  
-### 4. Generate the Assertions to Test
- 1. Navigate to the shell you opened in _Detailed Process for Performing a Risk Limiting Audit > 2. Activating the RLA Environment > Step 3_
- 2. Change to the bccr directory in the container shell, and run the irvaudit assertion generator to create the assertion file:
+### 5.4. Generate the Assertions to Test
+ 5.4.1. Navigate to the shell you opened in step 5.2.3
+ 5.4.2. Change to the bccr directory in the container shell, and run the irvaudit assertion generator to create the assertion file:
     ```
     cd /rcv-data/bccr
     irvaudit -rep_ballots RAIRE.txt -r 0.05 -agap 0.0 -alglog -simlog -json bc-assertions.json
     ```
 
-### 5. Generate the Manifest Card Count
-1. Open the manifest.xlsx file that you should have placed in c:\rcv-data\bccr
-2. Auto-sum all the populated cells in the fourth column, `Total Ballots`, excluding the header
-3. Make a note of this value - it will be used in the following step
+### 5.5. Generate the Manifest Card Count
+5.5.1. Open the manifest.xlsx file that you should have placed in c:\rcv-data\bccr
+5.5.2. Auto-sum all the populated cells in the fourth column, `Total Ballots`, excluding the header
+5.5.3. Make a note of this value - it will be used in the following step
 
-### 6. Generate the RLA Ballot Sample
-1. Launch the Jupyter Notebook by visiting http://localhost:8888
-2. Open the BC-RLA.ipynb file by double clicking it in the left sidebar The notebook is broken into cells, and each cell has a []: indicator to the left. 
-3. Scroll to the second cell following the header titled "`Boulder County RLS Setup Task #1: Populate required parameters`". Adjust the following parameters:
+### 5.6. Generate the RLA Ballot Sample
+5.6.1. Launch the Jupyter Notebook by visiting http://localhost:8888
+5.6.2. Open the BC-RLA.ipynb file by double clicking it in the left sidebar The notebook is broken into cells, and each cell has a []: indicator to the left. 
+5.6.3. Scroll to the second cell following the header titled "`Boulder County RLS Setup Task #1: Populate required parameters`". Adjust the following parameters:
   * SEED: This should be provided by the State
-  * MANIFEST_CARDS: Enter the value computed in Step 5
-4. Review the other parameters in cell 2 of the notebook, and adjust if appropriate (depending on your naming preferences if the defaults were not used)
-5. Navigate to cell 3 under the header "`Boulder County RLA Setup Task #2: Paste contest JSON from CVR to RAIRE conversation tool`"
-6. Copy the JSON contest data you acquired and stored in notepad in step 3.5 above (or revisit the ConvertCVRToRAIREwithJSON page to acquire it)
-7. Paste this JSON contest data and overwrite the block `{ 'PASTE OVER THIS BLOCK' }` (including pasting over the curly braces)
-8. Navigate to the notebook section titled "`Read the audited sample data`" and click that cell
-9. Select the `Kernel` menu from the Notebook frame in the browser, and select the "`Restart Kernel and Run up to Selected Cell...`" option
+  * MANIFEST_CARDS: Enter the value computed in Step 5.5
+5.6.4. Review the other parameters in cell 2 of the notebook, and adjust if appropriate (depending on your naming preferences if the defaults were not used)
+5.6.5. Navigate to cell 3 under the header "`Boulder County RLA Setup Task #2: Paste contest JSON from CVR to RAIRE conversation tool`"
+5.6.6. Copy the JSON contest data you acquired and stored in notepad in step 5.3.5 above (or revisit the ConvertCVRToRAIREwithJSON page to acquire it)
+5.6.7. Paste this JSON contest data and overwrite the block `{ 'PASTE OVER THIS BLOCK' }` (including pasting over the curly braces)
+5.6.8. Navigate to the notebook section titled "`Read the audited sample data`" and click that cell
+5.6.9. Select the `Kernel` menu from the Notebook frame in the browser, and select the "`Restart Kernel and Run up to Selected Cell...`" option
 
 
-## General Security Notes and Considerations
+<div id='id-section6'/>
+<br><br>
+
+___
+
+## 6. General Security Notes and Considerations
 1. While access to the containerized resources is via http as opposed to https, it is important to note that access is restricted only to the local system (i.e. only the local system can connect to exposed ports in the container). There is no network transmission of data to perform this process.
 2. The MVR tool is an alpha version developed several years ago by Dan King. There are currently multiple vulnerable components used to support this node.js application. However, given the container access restrictions and the intentional lack of network access to this container, the risk of using known vulnerable components in the container was deemed acceptable. 
