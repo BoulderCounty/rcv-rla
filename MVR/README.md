@@ -9,7 +9,7 @@ This tool provides two functions in support of the Boulder County Ranked Choice 
 
 ## Using the MVR and CVR-to-RAIRE Conversion Tools
 When the Boulder County RCV-RLA container is operational, the following URLs can be used to access essential pages for the MVR process:
-* CVR to RAIRE Conversion Tool: http://localhost:8887/html/ConvertCVRToRAIRE.html
+* CVR to RAIRE Conversion Tool: http://localhost:8887/html/ConvertCVRToRAIREwithJSON.html
 * MVR Contest Load to start the MVR process: http://localhost:8887/load-contest
 
 
