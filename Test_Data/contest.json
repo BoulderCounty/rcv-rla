@@ -1,0 +1,23 @@
+{
+    "contests": [{
+        "description": "Contest 1 (City of Boulder - Mayor)",
+        "id": 1
+    }],
+    "candidates": [
+        {
+            "description": "Candidate A",
+            "id": 1,
+            "type": "Regular"
+        },
+        {
+            "description": "Candidate B",
+            "id": 2,
+            "type": "Regular"
+        },
+        {
+            "description": "Candidate C",
+            "id": 3,
+            "type": "Regular"
+	}
+    ]
+}
