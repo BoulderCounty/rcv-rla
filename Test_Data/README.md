@@ -18,3 +18,6 @@ Test data can be used in conjunction with the process document in the main READM
 * The seeds used for testing were `SEED = 93686630803205229070` and `SIM_SEED = 314159265`
 * The card count (`MANIFEST_CARDS`) acquired from the manifest was `2374`
 * The sample_size that should be calculated based on the seed and other inputs for contest #1 is 82.
+
+## Simulating Access to Ballots
+Because the physical ballots are not available, the CVR_Export.csv file can be used to support testing. This file should be opened, and then it is advised that all contest columns _except for the contest you are auditing_ be hidden. Then, use filters to search for imprinted IDs that are called for from the MVR tool, and enter the corresponding marks from the CVR into the MVR ballot representation. By adjusting or altering marks in the MVR tool (i.e. entering different marks to what is in the CVR), you can simulate mark identification issues and test risk bounds. Note that just using the CVR data should in theory always produce a passing audit, because it is the same data source as what was used to populate the CVR data in the notebook. This duplicative data use does not occur when reading marks from the phsyical ballots to compare to the CVR.
