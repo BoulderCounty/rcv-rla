@@ -1,5 +1,5 @@
 # Boulder County RCV RLA Process
-**IMPORTANT DRAFT NOTICE**
+**IMPORTANT DRAFT NOTICE**<br>
 All content presented in this page and GitHub repository should be considered draft.<br>
 This content has not been reviewed or approved by authorized individuals at Boulder County.</p>
 
@@ -10,7 +10,17 @@ ___
 2. [SHANGRLA Overview](#id-section2)
 3. [Risk Limiting Audit Process Overview](#id-section3)
 4. [Tool and Repository Overview](#id-section4)
-5. [Detailed Process for Performing a Risk Limiting Audit](#id-section5)
+5. [Detailed Process for Performing a Risk Limiting Audit](#id-section5)<br>
+    5.1. [Prerequisites](#id-section5.1)<br>
+    5.2. [Activating the RLA Environment](#id-section5.2)<br>
+    5.3. [Create the RAIRE formatted CVR file](#id-section5.3)<br>
+    5.4. [Generate the Assertions to Test](#id-section5.4)<br>
+    5.5. [Generate the Manifest Card Count](#id-section5.5)<br>
+    5.6. [Generate the RLA Ballot Sample](#id-section5.6)<br>
+    5.7. [Generate a Contest File for the MVR Tool](#id-section5.7)<br>
+    5.8. [Run the Manual Vote Recorder Tool for Sample Comparison](#id-section5.8)<br>
+    5.9. [Complete the Audit](#id-section5.9)<br>
+    5.10. [Stop Container and Backup the Data Generated from the RLA](#id-section5.10)
 6. [General Security Notes and Considerations](#id-section6)
 
 <div id='id-section1'/>
@@ -92,6 +102,9 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 <div id='id-section5'/>
 
 ## 5. Detailed Process for Performing a Risk Limiting Audit
+
+<div id='id-section5.1'/>
+
 ### 5.1. Prerequisites
 - [ ] This process requires that you have access to a service enabling you to run containers. Docker Desktop is suggested and is available here: https://www.docker.com/products/docker-desktop/
 - [ ] You should be comfortable running basic commands from a command line (following instructions)
@@ -117,6 +130,7 @@ The following tools are used to perform the Boulder County RCV RLA process. They
         | 1 |105 | 4 | 150 | 2 |
         | ... |... |... | ... | ... |
 
+<div id='id-section5.2'/>
 
 ### 5.2. Activating the RLA Environment
 - [ ] 5.2.1. From a command line (e.g. `cmd.exe`), pull the current Docker container. Unless there are known changes to the container, this only has to be performed once. This command pulls the container image that is tagged `latest` (i.e. the most recently updated image in the repository):
@@ -146,6 +160,8 @@ The following tools are used to perform the Boulder County RCV RLA process. They
     git pull
     ```
 
+<div id='id-section5.3'/>
+
 ### 5.3. Create the RAIRE formatted CVR file
 - [ ] 5.3.1. Navigate to http://localhost:8887/html/ConvertCVRToRAIREwithJSON.html in a web browser
 - [ ] 5.3.2. Load the four .json files from the Dominion Voting System that you placed in `c:\rcv-data\bccr`
@@ -153,7 +169,9 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 - [ ] 5.3.4. Select the contest being audited by checking the appropriate checkbox
 - [ ] 5.3.5. Copy the JSON text between the --------------- boundaries for the contest you are auditing. Place this in an empty notepad text file, or leave this browser tab open. You will insert this data into the notebook in a later step. Don't worry - if you lose this, you'll be able to regenerate it using steps 5.3.1-5.3.4 above.
 - [ ] 5.3.6. Scroll to the bottom of the page, and click the `Download RAIRE format` link. Make a note of where this file is saved and move the file to `c:\rcv-data\bccr` -OR- choose to save it in `c:\rcv-data\bccr` if prompted. Name the file (or rename it if it automatically saves with an alternate name) as `RAIRE.txt`
- 
+
+<div id='id-section5.4'/>
+
 ### 5.4. Generate the Assertions to Test
 - [ ] 5.4.1. Navigate to the shell you opened in step 5.2.3
 - [ ] 5.4.2. Change to the bccr directory in the container shell, and run the irvaudit assertion generator to create the assertion file:
@@ -163,10 +181,14 @@ The following tools are used to perform the Boulder County RCV RLA process. They
     ```
 - [ ] 5.4.3. Leave this shell open, you will use it later in the process to backup contest data.
 
+<div id='id-section5.5'/>
+
 ### 5.5. Generate the Manifest Card Count
 - [ ] 5.5.1. Open the manifest.xlsx file that you should have placed in c:\rcv-data\bccr
 - [ ] 5.5.2. Auto-sum all the populated cells in the fourth column, `Total Ballots`, excluding the header
 - [ ] 5.5.3. Make a note of this value - it will be used in the following step
+
+<div id='id-section5.6'/>
 
 ### 5.6. Generate the RLA Ballot Sample
 - [ ] 5.6.1. Launch the Jupyter Notebook by visiting http://localhost:8888 in a web browser
@@ -187,11 +209,15 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 - [ ] 5.6.14. In step 17 under "Find initial sample size", there should be a sample_size=<n> value. Make a note of whatever the value for n is. We will use this as a check in the MVR tool.
 - [ ] 5.6.15. Save the workbook and progress using the save button, and leave the window/tab for this notebook open. You will come back to this after completing the MVR process.
 
+<div id='id-section5.7'/>
+
 ### 5.7. Generate a Contest File for the MVR Tool
 - [ ] 5.7.1. Navigate to http://localhost:8887/load-contest in a web browser
 - [ ] 5.7.1. Open Notepad on your workstation, and copy the JSON starter content from the contest.json frame in the MVR tool into Notepad
 - [ ] 5.7.3. Edit the contest and candidates sections, including at least the fields indicated in the example contest.json content (updating all with your current contest information)
 - [ ] 5.7.4. Save the file as `contest.json` in `c:\rcv-data\bccr`
+
+<div id='id-section5.8'/>
 
 ### 5.8. Run the Manual Vote Recorder Tool for Sample Comparison
 - [ ] 5.8.1. This process requires that two reviewers participate; one to mark the ballot representations, and one to review and confirm the marks are representative of what is on the ballot. Gather the two reviewers before continuing this process.
@@ -214,6 +240,8 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 - [ ] 5.8.15. Click the Export Contest link, or browse to http://localhost:8887/export-contest
 - [ ] 5.8.16. Use the buttons near the bottom of the page to download the `mvr_output.json` and `mvr_ballots.csv` files. Save these (or move them after saving) to `c:\rcv-data\bccr`. You'll now complete the workbook and audit process.
 
+<div id='id-section5.9'/>
+
 ### 5.9. Complete the Audit
 - [ ] 5.9.1. Return to the Jupyter Notebook tab/window in your browser (from step 5.6.15), and navigate to the cell following the header "Read the audited sample data". This directly follows the cell that wrote the sample CSV file in notebook cell #22. The comment in the cell reads "# Read MVR data".
 - [ ] 5.9.2. Click the play button near the top of the notebook. Use this play button to progress through each successive cell (one cell at a time), up to an including the "Log the status of the audit" cell. 
@@ -222,7 +250,9 @@ The following tools are used to perform the Boulder County RCV RLA process. They
   * Audit INCOMPLETE indicates that the audit has found issues beyond the risk limit.
 - [ ] 5.9.4. Press the save button in the notebook to save the current state and output in the notebook, including the results.
 
-### 5.10. Backup the Data Generated from the RLA
+<div id='id-section5.10'/>
+
+### 5.10. Stop Container and Backup the Data Generated from the RLA
 - [ ] 5.10.1 Return to the console you opened in section 5.2. If that was closed, from a command prompt (`cmd.exe`) run the following command to connect to the container:
     ```
     docker exec -it bc-rla /bin/bash
