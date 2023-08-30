@@ -161,6 +161,7 @@ The following tools are used to perform the Boulder County RCV RLA process. They
     cd /rcv-data/bccr
     irvaudit -rep_ballots RAIRE.txt -r 0.05 -agap 0.0 -alglog -simlog -json bc-assertions.json
     ```
+- [ ] 5.4.3. Leave this shell open, you will use it later in the process to backup contest data.
 
 ### 5.5. Generate the Manifest Card Count
 - [ ] 5.5.1. Open the manifest.xlsx file that you should have placed in c:\rcv-data\bccr
@@ -182,8 +183,9 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 - [ ] 5.6.10. Monitor notebook execution. As each cell completes, the box to the left, [ ]: will populate with a number indicating the cell, e.g. [7]: to denote completion. 
 - [ ] 5.6.11. Monitor execution until the cell beginning `# write the sample` completes under the "Draw the first sample" section of the notebook.
 - [ ] 5.6.12. If there are no errors, open the `c:\rcv-data\bccr` folder on your workstation. You should now have a file named `sample_<date_time_in_UTC>.csv`. Verify the presence of this file. If there are errors, you'll need to review them, address them, and then restart from step 5.6.9.
-- [ ] 5.6.13. In step 17 under "Find initial sample size", there should be a sample_size=<n> value. Make a note of whatever the value for n is. We will use this as a check in the MVR tool.
-- [ ] 5.6.14. Save the workbook and progress using the save button, and leave the window/tab for this notebook open. You will come back to this after completing the MVR process.
+- [ ] 5.6.13. Create a copy of this CSV file for later reference purposes if needed. It is suggested you navigate to the `c:\rcv-data\bccr` folder and copy the `sample_<date_time_in_UTC>.csv` file to a file named `sample_<date_time_in_UTC>.csv.backup`.
+- [ ] 5.6.14. In step 17 under "Find initial sample size", there should be a sample_size=<n> value. Make a note of whatever the value for n is. We will use this as a check in the MVR tool.
+- [ ] 5.6.15. Save the workbook and progress using the save button, and leave the window/tab for this notebook open. You will come back to this after completing the MVR process.
 
 ### 5.7. Generate a Contest File for the MVR Tool
 - [ ] 5.7.1. Navigate to http://localhost:8887/load-contest in a web browser
@@ -200,7 +202,7 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 - [ ] 5.8.6. Review the confirmation page, and recognize that if you create a new contest in the tool it will end any contest already being tested. I.e. _this tool is intended to process one contest at a time!_
 - [ ] 5.8.7. Click the `Create Contest` button.
 - [ ] 5.8.8. Verify you receive a "Success loading and creating contest!" message, and then click the `Mark Ballot` button.
-- [ ] 5.8.9. Locate the drop-down to the right in the green frame, prefixed by "Select Imprinted ID from remaining list of n". Compare this n value to the one recorded in 5.6.13. These should match. If not, further analysis will be required to determine why there is a discrepancy. Note that this value will start at the size of n, and decrease by one for each ballot that is marked in the tool.
+- [ ] 5.8.9. Locate the drop-down to the right in the green frame, prefixed by "Select Imprinted ID from remaining list of n". Compare this n value to the one recorded in 5.6.14. These should match. If not, further analysis will be required to determine why there is a discrepancy. Note that this value will start at the size of n, and decrease by one for each ballot that is marked in the tool.
 - [ ] 5.8.10. [**Reviewer 1**] Select and imprinted ID from the drop-down, and request/retrieve the corresponding ballot.
 - [ ] 5.8.11. [**Reviewer 1**] Mark the ballot representation in the MVR tool based on your interpretation of the physical ballot, then click the "Submit for Verification" button.
 - [ ] 5.8.12. [**Reviewer 2**] Review and verify the selections presented based on Reviewer 1 input. 
@@ -213,11 +215,31 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 - [ ] 5.8.16. Use the buttons near the bottom of the page to download the `mvr_output.json` and `mvr_ballots.csv` files. Save these (or move them after saving) to `c:\rcv-data\bccr`. You'll now complete the workbook and audit process.
 
 ### 5.9. Complete the Audit
-- [ ] 5.9.1. Return to the Jupyter Notebook tab/window in your browser (from step 5.6.14), and navigate to the cell following the header "Read the audited sample data". This directly follows the cell that wrote the sample CSV file in notebook cell #22. The comment in the cell reads "# Read MVR data".
+- [ ] 5.9.1. Return to the Jupyter Notebook tab/window in your browser (from step 5.6.15), and navigate to the cell following the header "Read the audited sample data". This directly follows the cell that wrote the sample CSV file in notebook cell #22. The comment in the cell reads "# Read MVR data".
 - [ ] 5.9.2. Click the play button near the top of the notebook. Use this play button to progress through each successive cell (one cell at a time), up to an including the "Log the status of the audit" cell. 
 - [ ] 5.9.3. Review the audit results in cell 27. Specifically, review the contest audit status.
   * Audit COMPLETE will indicate the audit completed, and the results as scored were confirmed to be within the risk limit for the audit.
   * Audit INCOMPLETE indicates that the audit has found issues beyond the risk limit.
+- [ ] 5.9.4. Press the save button in the notebook to save the current state and output in the notebook, including the results.
+
+### 5.10. Backup the Data Generated from the RLA
+- [ ] 5.10.1 Return to the console you opened in section 5.2. If that was closed, from a command prompt (`cmd.exe`) run the following command to connect to the container:
+    ```
+    docker exec -it bc-rla /bin/bash
+    ```
+- [ ] 5.10.2 Run the following command sequence from the container shell. You should replace \<contest\> and \<yyyy-mm-dd\> placeholders incusive of the angle brackets with relevant values in each case command:
+    ```
+    cp /opt/BoCo-RCV-RLA/SHANGRLA/2023/BC-RLA.ipynb /rcv-data/bccr/BC-RLA_<contest>_<yyyy-mm-dd>.ipynb
+    cd /rcv-data
+    tar -cvf bc-rla_<contest>_<yyyy-mm-dd>.tar bccr
+    ```
+- [ ] 5.10.4 Stop the docker container from a command prompt (opening a new one if necessary via `cmd.exe`):
+    ```
+    docker stop bc-rla
+    ```
+- [ ] 5.10.4 On your primary workstation (not the container shell),  navigate to `c:\rcv-data`. 
+- [ ] 5.10.5 Rename the `bccr` folder to `bccr_<contest>_<yyyy-mm-dd>`, and then create a new empty `bccr` folder for the next RLA.
+- [ ] 5.10.6 Copy the backup file named `bc-rla_<contest>_<yyyy-mm-dd>.tar` to the approved RLA storage location.
 
 
 <div id='id-section6'/>
