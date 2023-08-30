@@ -139,14 +139,14 @@ The following tools are used to perform the Boulder County RCV RLA process. They
     ```
     docker pull us-west3-docker.pkg.dev/rule4-container-registry/boco-rcv-rla/rcv-rla:latest
     ```
-- [ ] 5.2.2. Start the container (adjusting the local path `/c/rcv-data` if necessary based on where the local folder was created):
+- [ ] 5.2.2. Start the container (adjusting the local path `/c/rcv-data` if necessary based on where the local folder was created). Note that this format is required for the docker volume mount (vs. native c:\ type paths):
     ```
     docker run -itd --name bc-rla -p 127.0.0.1:8888:8888 -p 127.0.0.1:8887:8887 -v /c/rcv-data:/rcv-data/ us-west3-docker.pkg.dev/rule4-container-registry/boco-rcv-rla/rcv-rla
     ```
 
     Command Explanation:
     * `docker run -itd` : _Run the docker container and allocate a pseudo-TTY connected to the container’s stdin; creating an interactive bash shell in the container, and support backgrounding as a daemon_
-    * `--name bc-rla**  _Set the name for the container to run as_
+    * `--name bc-rla`  _Set the name for the container to run as_
     * `-p 127.0.0.1:8888:8888` : _Accept connections only on the Docker host's local interface on port 8888, and map to port 8888 in the container (used for the Jupyter Notebook)_
     * `-p 127.0.0.1:8887:8887` : _Accept connections only on the Docker host's local interface on port 8887, and map to port 8887 in the container (used for the MVR Tool node.js application and CVR-to-RAIRE conversion tool)_
     * `-v /c/rcv-data:/rcv-data/` : _Mount the local folder /c/rcv-data (c:\rcv-data) to /rcv-data in the container._
@@ -175,7 +175,7 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 <div id='id-section5.4'/>
 
 ### 5.4. Generate the Assertions to Test
-- [ ] 5.4.1. Navigate to the shell you opened in step 5.2.3
+- [ ] 5.4.1. Navigate to the shell you opened in step 5.2.3.
 - [ ] 5.4.2. Change to the bccr directory in the container shell, and run the irvaudit assertion generator to create the assertion file:
     ```
     cd /rcv-data/bccr
@@ -186,9 +186,9 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 <div id='id-section5.5'/>
 
 ### 5.5. Generate the Manifest Card Count
-- [ ] 5.5.1. Open the manifest.xlsx file that you should have placed in c:\rcv-data\bccr
-- [ ] 5.5.2. Auto-sum all the populated cells in the fourth column, `Total Ballots`, excluding the header
-- [ ] 5.5.3. Make a note of this value - it will be used in the following step
+- [ ] 5.5.1. Open the manifest.xlsx file that you should have placed in c:\rcv-data\bccr.
+- [ ] 5.5.2. Auto-sum all the populated cells in the fourth column, `Total Ballots`, excluding the header.
+- [ ] 5.5.3. Make a note of this value - it will be used in the following step.
 
 <div id='id-section5.6'/>
 
@@ -214,9 +214,9 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 <div id='id-section5.7'/>
 
 ### 5.7. Generate a Contest File for the MVR Tool
-- [ ] 5.7.1. Navigate to http://localhost:8887/load-contest in a web browser
-- [ ] 5.7.1. Open Notepad on your workstation, and copy the JSON starter content from the contest.json frame in the MVR tool into Notepad
-- [ ] 5.7.3. Edit the contest and candidates sections, including at least the fields indicated in the example contest.json content (updating all with your current contest information)
+- [ ] 5.7.1. Navigate to http://localhost:8887/load-contest in a web browser.
+- [ ] 5.7.1. Open Notepad on your workstation, and copy the JSON starter content from the contest.json frame in the MVR tool into Notepad.
+- [ ] 5.7.3. Edit the contest and candidates sections, including at least the fields indicated in the example contest.json content (updating all with your current contest information).
 - [ ] 5.7.4. Save the file as `contest.json` in `c:\rcv-data\bccr`
 
 <div id='id-section5.8'/>
