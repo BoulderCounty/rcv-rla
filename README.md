@@ -176,7 +176,7 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 - [ ] 5.4.1. Navigate to the shell you opened in step 5.2.3
 - [ ] 5.4.2. Change to the bccr directory in the container shell, and run the irvaudit assertion generator to create the assertion file:
     ```
-    cd /rcv-data/bccr ;
+    cd /rcv-data/bccr
     irvaudit -rep_ballots RAIRE.txt -r 0.05 -agap 0.0 -alglog -simlog -json bc-assertions.json
     ```
 - [ ] 5.4.3. Leave this shell open, you will use it later in the process to backup contest data.
@@ -259,8 +259,8 @@ The following tools are used to perform the Boulder County RCV RLA process. They
     ```
 - [ ] 5.10.2 Run the following command sequence from the container shell. You should replace \<contest\> and \<yyyy-mm-dd\> placeholders incusive of the angle brackets with relevant values in each case command:
     ```
-    cp /opt/BoCo-RCV-RLA/SHANGRLA/2023/BC-RLA.ipynb /rcv-data/bccr/BC-RLA_<contest>_<yyyy-mm-dd>.ipynb ;
-    cd /rcv-data ;
+    cp /opt/BoCo-RCV-RLA/SHANGRLA/2023/BC-RLA.ipynb /rcv-data/bccr/BC-RLA_<contest>_<yyyy-mm-dd>.ipynb
+    cd /rcv-data
     tar -cvf bc-rla_<contest>_<yyyy-mm-dd>.tar bccr
     ```
 - [ ] 5.10.4 Stop the docker container from a command prompt (opening a new one if necessary via `cmd.exe`):
