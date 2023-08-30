@@ -28,7 +28,9 @@ RUN apt-get update && \
         procps \
         net-tools \
         npm \
-        screen && \
+        screen \
+	gcc \
+	python3-dev && \
     apt-get clean && \
     cd /tmp && \
     BOOST_VERSION_MOD=$(echo $BOOST_VERSION | tr . _) && \
