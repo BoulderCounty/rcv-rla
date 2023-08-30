@@ -119,7 +119,7 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 
 
 ### 5.2. Activating the RLA Environment
-- [ ] 5.2.1. From a command line (e.g. `cmd.exe`), pull the current Docker container. Unless there are known changes to the container, this only has to be performed once. This command pulls the container image that is tagged "latest" (i.e. the most recently updated image in the repository):
+- [ ] 5.2.1. From a command line (e.g. `cmd.exe`), pull the current Docker container. Unless there are known changes to the container, this only has to be performed once. This command pulls the container image that is tagged `latest` (i.e. the most recently updated image in the repository):
     ```
     docker pull us-west3-docker.pkg.dev/rule4-container-registry/boco-rcv-rla/rcv-rla:latest
     ```
@@ -149,7 +149,7 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 ### 5.3. Create the RAIRE formatted CVR file
 - [ ] 5.3.1. Navigate to http://localhost:8887/html/ConvertCVRToRAIREwithJSON.html
 - [ ] 5.3.2. Load the four .json files from the Dominion Voting System that you placed in `c:\rcv-data\bccr`
-- [ ] 5.3.3. Review the "_Then choose options on how to deal with some issues_" and "_Next, choose the ballot types you want to audit._" parameters and adjust if appropriate
+- [ ] 5.3.3. Review the `Then choose options on how to deal with some issues` and `Next, choose the ballot types you want to audit` parameters and adjust if appropriate
 - [ ] 5.3.4. Select the contest being audited by checking the appropriate checkbox
 - [ ] 5.3.5. Copy the JSON text between the --------------- boundaries for the contest you are auditing. Place this in an empty notepad text file, or leave this browser tab open. You will insert this data into the notebook in a later step. Don't worry - if you lose this, you'll be able to regenerate it using steps 5.3.1-5.3.4 above.
 - [ ] 5.3.6. Scroll to the bottom of the page, and click the `Download RAIRE format` link. Make a note of where this file is saved and move the file to `c:\rcv-data\bccr` -OR- choose to save it in `c:\rcv-data\bccr` if prompted. Name the file (or rename it if it automatically saves with an alternate name) as `RAIRE.txt`
