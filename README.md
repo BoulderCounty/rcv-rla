@@ -170,15 +170,15 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 ### 5.6. Generate the RLA Ballot Sample
 - [ ] 5.6.1. Launch the Jupyter Notebook by visiting http://localhost:8888
 - [ ] 5.6.2. Open the BC-RLA.ipynb file by double clicking it in the left sidebar The notebook is broken into cells, and each cell has a []: indicator to the left. 
-- [ ] 5.6.3. Scroll to the second cell following the header titled "`Boulder County RLS Setup Task #1: Populate required parameters`". Adjust the following parameters:
+- [ ] 5.6.3. Scroll to the second cell following the header titled `Boulder County RLS Setup Task #1: Populate required parameters`. Adjust the following parameters:
     * SEED: This should be provided by the State
     * MANIFEST_CARDS: Enter the value computed in Step 5.5
 - [ ] 5.6.4. Review the other parameters in cell 2 of the notebook, and adjust if appropriate (depending on your naming preferences if the defaults were not used)
-- [ ] 5.6.5. Navigate to cell 3 under the header "`Boulder County RLA Setup Task #2: Paste contest JSON from CVR to RAIRE conversation tool`"
+- [ ] 5.6.5. Navigate to cell 3 under the header `Boulder County RLA Setup Task #2: Paste contest JSON from CVR to RAIRE conversation tool`
 - [ ] 5.6.6. Copy the JSON contest data you acquired and stored in notepad in step 5.3.5 above (or revisit the ConvertCVRToRAIREwithJSON page to acquire it)
 - [ ] 5.6.7. Paste this JSON contest data and overwrite the block `{ 'PASTE OVER THIS BLOCK' }` (including pasting over the curly braces)
-- [ ] 5.6.8. Navigate to the notebook section titled "`Read the audited sample data`" and click that cell
-- [ ] 5.6.9. Select the `Kernel` menu from the Notebook frame in the browser, and select the "`Restart Kernel and Run up to Selected Cell...`" option
+- [ ] 5.6.8. Navigate to the notebook section titled `Read the audited sample data` and click that cell
+- [ ] 5.6.9. Select the `Kernel` menu from the Notebook frame in the browser, and select the `Restart Kernel and Run up to Selected Cell...` option
 
 
 <div id='id-section6'/>
