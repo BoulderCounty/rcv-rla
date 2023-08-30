@@ -129,6 +129,8 @@ The following tools are used to perform the Boulder County RCV RLA process. They
         | 1 |103 | 2 | 146 | 3 |
         | 1 |105 | 4 | 150 | 2 |
         | ... |... |... | ... | ... |
+- [ ] If the `manifest.xlsx` file is to be created on this system, Excel will be required (the tool currently expects a .xlsx file as opposed to a CSV file for this input file.)
+- [ ] The container image is built to support arm64 and amd64 architectures, and should work with modern Windows and macOS platforms.
 
 <div id='id-section5.2'/>
 
