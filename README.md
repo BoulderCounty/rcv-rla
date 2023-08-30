@@ -147,7 +147,7 @@ The following tools are used to perform the Boulder County RCV RLA process. They
     * `--name bc-rla**  _Set the name for the container to run as_
     * `-p 127.0.0.1:8888:8888` : _Accept connections only on the Docker host's local interface on port 8888, and map to port 8888 in the container (used for the Jupyter Notebook)_
     * `-p 127.0.0.1:8887:8887` : _Accept connections only on the Docker host's local interface on port 8887, and map to port 8887 in the container (used for the MVR Tool node.js application and CVR-to-RAIRE conversion tool)_
-    * `-v /c/rcv-data:/rcv-data/` : _Mount the local folder /c/rcv-data (c:\rcv-data) to /rcv-data in the container_._
+    * `-v /c/rcv-data:/rcv-data/` : _Mount the local folder /c/rcv-data (c:\rcv-data) to /rcv-data in the container._
     * `us-west3-docker.pkg.dev/rule4-container-registry/boco-rcv-rla/rcv-rla` : _The container image to run (pulled in the previous step)_
 - [ ] 5.2.3. Connect to the terminal/shell to in preparation for using the irvaudit tool to create the assertions to test. If you named your container something other than bc-rla, change the name as appropriate in the following command:
 
@@ -176,7 +176,7 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 - [ ] 5.4.1. Navigate to the shell you opened in step 5.2.3
 - [ ] 5.4.2. Change to the bccr directory in the container shell, and run the irvaudit assertion generator to create the assertion file:
     ```
-    cd /rcv-data/bccr
+    cd /rcv-data/bccr ;
     irvaudit -rep_ballots RAIRE.txt -r 0.05 -agap 0.0 -alglog -simlog -json bc-assertions.json
     ```
 - [ ] 5.4.3. Leave this shell open, you will use it later in the process to backup contest data.
@@ -259,8 +259,8 @@ The following tools are used to perform the Boulder County RCV RLA process. They
     ```
 - [ ] 5.10.2 Run the following command sequence from the container shell. You should replace \<contest\> and \<yyyy-mm-dd\> placeholders incusive of the angle brackets with relevant values in each case command:
     ```
-    cp /opt/BoCo-RCV-RLA/SHANGRLA/2023/BC-RLA.ipynb /rcv-data/bccr/BC-RLA_<contest>_<yyyy-mm-dd>.ipynb
-    cd /rcv-data
+    cp /opt/BoCo-RCV-RLA/SHANGRLA/2023/BC-RLA.ipynb /rcv-data/bccr/BC-RLA_<contest>_<yyyy-mm-dd>.ipynb ;
+    cd /rcv-data ;
     tar -cvf bc-rla_<contest>_<yyyy-mm-dd>.tar bccr
     ```
 - [ ] 5.10.4 Stop the docker container from a command prompt (opening a new one if necessary via `cmd.exe`):
