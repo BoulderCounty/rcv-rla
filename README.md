@@ -28,10 +28,10 @@ ___
 
 
 ## 1. Background, Theory, Contributors, and Approach Justification
-The Boulder County 2023 Ranked Choice Voting (RCV) Risk Limiting Audit (RLA) process is based on published work and code from leading researchers in the field of statistics and elections auditing:
+The Boulder County 2023 Ranked Choice Voting (RCV) Risk-Limiting Audit (RLA) process is based on published work and code from leading researchers in the field of statistics and elections auditing:
 
 * **Philip B. Stark**
-  * Distinguished Professor of Statistics, University of California, Berkley
+  * Distinguished Professor of Statistics, University of California, Berkeley
   * **About**: https://statistics.berkeley.edu/people/philip-b-stark
   * **Other Information**: https://www.stat.berkeley.edu/~stark/Vote/index.htm
 * **Dr. Michelle Blom**
@@ -46,13 +46,13 @@ The Boulder County 2023 Ranked Choice Voting (RCV) Risk Limiting Audit (RLA) pro
 
 The majority of the work product used to build this toolset is based on the efforts of the aforementioned individuals. See also the following paper detailing the process used for the 2019 San Francisco District Attorney Instant Runoff Vote: https://arxiv.org/pdf/2004.00235.pdf
 
-The County has received input and feedback from Dr. Blom and Dr. Teague during the County technology review and testing process. As a Colorado leader in using instant runoff voting (i.e. ranked choice voting), Boulder County needs a viable process to perform a risk limiting audit in advance of broad RCV RLA tool availability in future elections, expected to be provided by the State. 
+The County has received input and feedback from Dr. Blom and Dr. Teague during the County technology review and testing process. As a Colorado leader in using instant runoff voting (i.e., ranked choice voting), Boulder County needs a viable process to perform a risk-limiting audit in advance of broad RCV RLA tool availability in future elections, which is expected to be provided by the State.
 
-Notably, the Colorado Secretary of State cites resources from Philip B. Stark's work on the Secretary of State’s Risk-Limiting Audit Resources page: https://www.sos.state.co.us/pubs/elections/VotingSystems/riskAuditResources.html. Additional resources provided by the Secretary of State, including Frequently Asked Questions (FAQs) can be be found here: https://www.sos.state.co.us/pubs/elections/RLA/faqs.html. 
+Notably, the Colorado Secretary of State cites resources from Philip B. Stark's work on the Secretary of State’s Risk-Limiting Audit Resources page: https://www.sos.state.co.us/pubs/elections/VotingSystems/riskAuditResources.html. Additional resources provided by the Secretary of State, including Frequently Asked Questions (FAQs) can be found here: https://www.sos.state.co.us/pubs/elections/RLA/faqs.html. 
 
-[Rule4](https://rule4.com) is a cybersecurity and infrastructure consulting company based in Boulder, CO whose team members have partnered with the Boulder County Clerk & Recorder's Office for over 15 years on various initiatives related cybersecurity and the safe application of technology. Rule4 has provided support at the request of the Clerk & Recorder's office to operationalize the code necessary to use this collection of risk limiting audit tools. Rule4 maintains the repository for this Boulder County RCV RLA process. Rule4's effort focused on aggregating those discrete tools into a manageable process, reducing the potential for human error when possible, and enabling the County to achieve relative independence when performing the RLA for RCV contests.
+[Rule4](https://rule4.com) is a Boulder-based cybersecurity and infrastructure consulting company whose team members have partnered with the Boulder County Clerk & Recorder's Office for more than 15 years on various initiatives related to cybersecurity and the safe application of technology. Rule4 has provided support at the request of the Clerk & Recorder's office to operationalize the code necessary to use this collection of risk-limiting audit tools. Rule4 maintains the repository for this Boulder County RCV RLA process. Rule4's effort focused on aggregating those discrete tools into a manageable process, reducing the potential for human error when possible, and enabling the County to achieve relative independence when performing the RLA for RCV contests.
 
-In summary, Boulder County has performed reasonable due diligence in ensuring that resources, both individuals and code, used to establish an interim process for performing risk limiting audits for ranked choice voting are of high integrity, and consistent with the spirit and intent of risk-limiting audit objectives. 
+In summary, Boulder County has performed reasonable due diligence in ensuring that resources, both individuals and code, used to establish an interim process for performing risk-limiting audits for ranked choice voting are of high integrity, and consistent with the spirit and intent of risk-limiting audit objectives. 
 
 <div id='id-section2'/>
 
@@ -77,8 +77,8 @@ contests with various election types including Range and Approval voting and Bor
 
 <div id='id-section3'/>
 
-## 3. Risk Limiting Audit Process Overview
-The general process for the risk limiting audit is as follows, and assumes that contest, candidate, CVR, and supporting manifest information is available.
+## 3. Risk-Limiting Audit Process Overview
+The general process for the risk-limiting audit is as follows, and assumes that contest, candidate, CVR, and supporting manifest information is available.
 
 1. The CVR and supporting manifests are exported from the Dominion Voting System. 
 2. Exported files are transferred to an isolated workstation running the Boulder County RCV-RLA docker container, in a designated local folder that is mounted within the container when it is running.
@@ -88,7 +88,7 @@ The general process for the risk limiting audit is as follows, and assumes that 
 6. The ballots identified in the sample are pulled (physical ballots).
 7. The MVR tool is used to record the perceived ballot impressions from manual review.
 8. The MVR tool generates a JSON file used for comparison with the dominion CVR data.
-9. The measured risk based on generated assertions and the CVR and MVR data is used in conjunction with defined error and risk limit rates to determine if the RLA is deemed satisfied, or if recounts or expanded sampling are required.
+9. The measured risk based on generated assertions and the CVR and MVR data is used in conjunction with defined error and risk-limit rates to determine whether the RLA is deemed satisfied, or whether recounts or expanded sampling are required.
 
 
 <div id='id-section4'/>
@@ -111,8 +111,8 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 ### 5.1. Prerequisites
 - [ ] This process requires that you have access to a service enabling you to run containers. Docker Desktop is suggested and is available here: https://www.docker.com/products/docker-desktop/
 - [ ] You should be comfortable running basic commands from a command line (following instructions)
-- [ ] These instructions are written primarily for Windows OS use. If you're using Linux or macOS, there will be subtle change you'll need to make relative to your platform.
-- [ ] You will need to designate a local folder to present data to the container. For example, create a folder under C:\ called rcv-data, and create a subfolder under c:\rcv-data called bccr. The subfolder is not required, but useful for containing data ready for processing (whereas the root rcv-data folder may be used to handle temporary data, or not used at all.)
+- [ ] These instructions are written primarily for Windows OS use. If you are using Linux or macOS, there will be subtle changes you might need to make for your specific platform.
+- [ ] You will need to designate a local folder to present data to the container. For example, create a folder under C:\ called rcv-data, and create a subfolder under c:\rcv-data called bccr. The subfolder is not required, but it is useful for storing data ready for processing (whereas the root rcv-data folder may be used to handle temporary data, or not used at all.)
 - [ ] You will need access to the following files. Place them in the `c:\rcv-data\bccr` folder on your local system.
   * Dominion Files (these are generated by the Dominion Voting System):
     * CountingGroupManifest.json
@@ -120,7 +120,7 @@ The following tools are used to perform the Boulder County RCV RLA process. They
     * CandidateManifest.json
     * CvrExport.json
   * Non-Dominion Files
-    * A ballot manifest associated with the contest, also placed in the `c:\rcv-data\bccr` folder on your local system. This file should be in Excel (xlsx) format, ideally named `manifest.xlsx` and contain only the following columns (with case and spellings exactly as indicated):
+    * A ballot manifest associated with the contest, also placed in the `c:\rcv-data\bccr` folder on your local system. This file should be in Excel (xlsx) format, ideally named `manifest.xlsx` and it should contain only the following columns (with case and spellings exactly as indicated):
       * **Tray**: Can be populated with 1 for each row, given the use of single-tray tabulators.
       * **Tabulator Number**: The scanning station. Must match the format used in the CVR (i.e. three-digit numeric identifiers)
       * **Batch Number**: The batch number
@@ -133,12 +133,12 @@ The following tools are used to perform the Boulder County RCV RLA process. They
         | 1 |103 | 2 | 146 | 3 |
         | 1 |105 | 4 | 150 | 2 |
         | ... |... |... | ... | ... |
-- [ ] If the `manifest.xlsx` file is to be created on this system, Excel will be required (the tool currently expects a .xlsx file as opposed to a CSV file for this input file.)
+- [ ] If the `manifest.xlsx` file is to be created on this system, Excel will be required. The tool currently expects a .xlsx file as opposed to a .csv file for this input file.
 - [ ] The container image is built to support arm64 and amd64 architectures, and should work with modern Windows and macOS platforms.
 
 <div id='id-section5.2'/>
 
-### 5.2. Activating the RLA Environment
+### 5.2. Activate the RLA Environment
 - [ ] 5.2.1. From a command line (e.g. `cmd.exe`), pull the current Docker container. Unless there are known changes to the container, this only has to be performed once. This command pulls the container image that is tagged `latest` (i.e. the most recently updated image in the repository):
     ```
     docker pull us-west3-docker.pkg.dev/rule4-container-registry/boco-rcv-rla/rcv-rla:latest
@@ -160,7 +160,7 @@ The following tools are used to perform the Boulder County RCV RLA process. They
     ```
     docker exec -it bc-rla /bin/bash
     ```
-- [ ] 5.2.4. Refresh local copies of code in the container from the main repository in the event the notebook or other files have been updated. Only do this once when starting the RLA process, otherwise your notebook (and an work underway) may be overwritten.
+- [ ] 5.2.4. Refresh local copies of code in the container from the main repository in the event the notebook or other files have been updated. Only do this once when starting the RLA process, otherwise your notebook (and any work underway) may be overwritten.
     ```
     cd /opt/BoCo-RCV-RLA
     git pull
@@ -168,18 +168,18 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 
 <div id='id-section5.3'/>
 
-### 5.3. Create the RAIRE formatted CVR file
-- [ ] 5.3.1. Navigate to http://localhost:8887/html/ConvertCVRToRAIREwithJSON.html in a web browser
-- [ ] 5.3.2. Load the four .json files from the Dominion Voting System that you placed in `c:\rcv-data\bccr`
-- [ ] 5.3.3. Review the `Then choose options on how to deal with some issues` and `Next, choose the ballot types you want to audit` parameters and adjust if appropriate
-- [ ] 5.3.4. Select the contest being audited by checking the appropriate checkbox
-- [ ] 5.3.5. Copy the JSON text between the --------------- boundaries for the contest you are auditing. Place this in an empty notepad text file, or leave this browser tab open. You will insert this data into the notebook in a later step. Don't worry - if you lose this, you'll be able to regenerate it using steps 5.3.1-5.3.4 above.
+### 5.3. Create the RAIRE-Formatted CVR File
+- [ ] 5.3.1. Navigate to http://localhost:8887/html/ConvertCVRToRAIREwithJSON.html in a web browser.
+- [ ] 5.3.2. Load the four .json files from the Dominion Voting System that you placed in `c:\rcv-data\bccr`.
+- [ ] 5.3.3. Review the `Then choose options on how to deal with some issues` and `Next, choose the ballot types you want to audit` parameters and adjust if appropriate.
+- [ ] 5.3.4. Select the contest being audited by checking the appropriate checkbox.
+- [ ] 5.3.5. Copy the JSON text between the --------------- boundaries for the contest you are auditing. Place this in an empty notepad text file, or leave this browser tab open. You will insert this data into the notebook in a later step. Don't worry - if you lose this, you'll be able to regenerate it using Steps 5.3.1-5.3.4 above.
 - [ ] 5.3.6. Scroll to the bottom of the page, and click the `Download RAIRE format` link. Make a note of where this file is saved and move the file to `c:\rcv-data\bccr` -OR- choose to save it in `c:\rcv-data\bccr` if prompted. Name the file (or rename it if it automatically saves with an alternate name) as `RAIRE.txt`
 
 <div id='id-section5.4'/>
 
 ### 5.4. Generate the Assertions to Test
-- [ ] 5.4.1. Navigate to the shell you opened in step 5.2.3.
+- [ ] 5.4.1. Navigate to the shell you opened in Step 5.2.3.
 - [ ] 5.4.2. Change to the bccr directory in the container shell, and run the irvaudit assertion generator to create the assertion file:
     ```
     cd /rcv-data/bccr
@@ -197,69 +197,69 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 <div id='id-section5.6'/>
 
 ### 5.6. Generate the RLA Ballot Sample
-- [ ] 5.6.1. Launch the Jupyter Notebook by visiting http://localhost:8888 in a web browser
+- [ ] 5.6.1. Launch the Jupyter Notebook by visiting http://localhost:8888 in a web browser.
 - [ ] 5.6.2. Open the BC-RLA.ipynb file by double clicking it in the left sidebar The notebook is broken into cells, and each cell has a []: indicator to the left. 
 - [ ] 5.6.3. Scroll to the second cell following the header titled `Boulder County RLS Setup Task #1: Populate required parameters`. Adjust the following parameters:
-    * SEED: This should be provided by the State
-    * MANIFEST_CARDS: Enter the value computed in Step 5.5
-- [ ] 5.6.4. Review the other parameters in cell 2 of the notebook, and adjust if appropriate (depending on your file and folder naming preferences if the defaults were not used)
-- [ ] 5.6.5. Navigate to cell 3 under the header `Boulder County RLA Setup Task #2: Paste contest JSON from CVR to RAIRE conversation tool`
-- [ ] 5.6.6. Copy the JSON contest data you acquired and stored in notepad in step 5.3.5 above (or revisit the ConvertCVRToRAIREwithJSON page to acquire it)
-- [ ] 5.6.7. Paste this JSON contest data and overwrite the block `{ 'PASTE OVER THIS BLOCK' }` (including pasting over the curly braces)
-- [ ] 5.6.8. Navigate to the notebook section titled `Read the audited sample data` and click that cell
-- [ ] 5.6.9. Select the `Kernel` menu from the Notebook frame in the browser, and select the `Restart Kernel and Run up to Selected Cell...` option
+    * SEED: This should be provided by the State.
+    * MANIFEST_CARDS: Enter the value computed in Step 5.5.
+- [ ] 5.6.4. Review the other parameters in Cell #2 of the notebook, and adjust if appropriate (depending on your file and folder naming preferences if the defaults were not used).
+- [ ] 5.6.5. Navigate to Cell 3 under the header `Boulder County RLA Setup Task #2: Paste contest JSON from CVR to RAIRE conversation tool`.
+- [ ] 5.6.6. Copy the JSON contest data you acquired and stored in notepad in step 5.3.5 above (or revisit the ConvertCVRToRAIREwithJSON page to acquire it).
+- [ ] 5.6.7. Paste this JSON contest data and overwrite the block `{ 'PASTE OVER THIS BLOCK' }` (including pasting over the curly braces).
+- [ ] 5.6.8. Navigate to the notebook section titled `Read the audited sample data` and click that cell.
+- [ ] 5.6.9. Select the `Kernel` menu from the Notebook frame in the browser, and select the `Restart Kernel and Run up to Selected Cell...` option.
 - [ ] 5.6.10. Monitor notebook execution. As each cell completes, the box to the left, [ ]: will populate with a number indicating the cell, e.g. [7]: to denote completion. 
 - [ ] 5.6.11. Monitor execution until the cell beginning `# write the sample` completes under the "Draw the first sample" section of the notebook.
-- [ ] 5.6.12. If there are no errors, open the `c:\rcv-data\bccr` folder on your workstation. You should now have a file named `sample_<date_time_in_UTC>.csv`. Verify the presence of this file. If there are errors, you'll need to review them, address them, and then restart from step 5.6.9.
+- [ ] 5.6.12. If there are no errors, open the `c:\rcv-data\bccr` folder on your workstation. You should now have a file named `sample_<date_time_in_UTC>.csv`. Verify the presence of this file. If there are errors, you will need to review them, address them, and then restart from Step 5.6.9.
 - [ ] 5.6.13. Create a copy of this CSV file for later reference purposes if needed. It is suggested you navigate to the `c:\rcv-data\bccr` folder and copy the `sample_<date_time_in_UTC>.csv` file to a file named `sample_<date_time_in_UTC>.csv.backup`.
-- [ ] 5.6.14. In step 17 under "Find initial sample size", there should be a sample_size=<n> value. Make a note of whatever the value for n is. We will use this as a check in the MVR tool.
+- [ ] 5.6.14. In Step 17 under "Find initial sample size", there should be a sample_size=<n> value. Make a note of whatever the value for n is. We will use this as a check in the MVR tool.
 - [ ] 5.6.15. Save the workbook and progress using the save button, and leave the window/tab for this notebook open. You will come back to this after completing the MVR process.
 
 <div id='id-section5.7'/>
 
 ### 5.7. Generate a Contest File for the MVR Tool
 - [ ] 5.7.1. Navigate to http://localhost:8887/load-contest in a web browser.
-- [ ] 5.7.1. Open Notepad on your workstation, and copy the JSON starter content from the contest.json frame in the MVR tool into Notepad.
+- [ ] 5.7.2. Open Notepad on your workstation, and copy the JSON starter content from the contest.json frame in the MVR tool into Notepad.
 - [ ] 5.7.3. Edit the contest and candidates sections, including at least the fields indicated in the example contest.json content (updating all with your current contest information).
-- [ ] 5.7.4. Save the file as `contest.json` in `c:\rcv-data\bccr`
+- [ ] 5.7.4. Save the file as `contest.json` in `c:\rcv-data\bccr`.
 
 <div id='id-section5.8'/>
 
 ### 5.8. Run the Manual Vote Recorder Tool for Sample Comparison
-- [ ] 5.8.1. This process requires that two reviewers participate; one to mark the ballot representations, and one to review and confirm the marks are representative of what is on the ballot. Gather the two reviewers before continuing this process.
-- [ ] 5.8.2. Navigate to http://localhost:8887/load-contest in a web browser if you are not already there from step 5.7.
-- [ ] 5.8.3. Click the `Choose File` button under `Contest (JSON)`, and select the file you created in step 5.7.4.
-- [ ] 5.8.4. Click the `Choose File` button under `Ballots (CSV)`, and select the file that was created in step 5.6.11.
+- [ ] 5.8.1. This process requires that two reviewers participate: one to mark the ballot representations, and one to review and confirm the marks are representative of what is on the ballot. Gather the two reviewers before continuing this process.
+- [ ] 5.8.2. Navigate to http://localhost:8887/load-contest in a web browser if you are not already there from Step 5.7.
+- [ ] 5.8.3. Click the `Choose File` button under `Contest (JSON)`, and select the file you created in Step 5.7.4.
+- [ ] 5.8.4. Click the `Choose File` button under `Ballots (CSV)`, and select the file that was created in Step 5.6.11.
 - [ ] 5.8.5. Click the `Upload Contest Details` button.
-- [ ] 5.8.6. Review the confirmation page, and recognize that if you create a new contest in the tool it will end any contest already being tested. I.e. _this tool is intended to process one contest at a time!_
+- [ ] 5.8.6. Review the confirmation page, and recognize that if you create a new contest in the tool it will end any contest already being tested - i.e. _this tool is intended to process one contest at a time!_
 - [ ] 5.8.7. Click the `Create Contest` button.
 - [ ] 5.8.8. Verify you receive a "Success loading and creating contest!" message, and then click the `Mark Ballot` button.
-- [ ] 5.8.9. Locate the drop-down to the right in the green frame, prefixed by "Select Imprinted ID from remaining list of n". Compare this n value to the one recorded in 5.6.14. These should match. If not, further analysis will be required to determine why there is a discrepancy. Note that this value will start at the size of n, and decrease by one for each ballot that is marked in the tool.
-- [ ] 5.8.10. [**Reviewer 1**] Select and imprinted ID from the drop-down, and request/retrieve the corresponding ballot.
+- [ ] 5.8.9. Locate the drop-down to the right in the green frame, prefixed by "Select Imprinted ID from remaining list of n". Compare this n value to the one recorded in Step 5.6.14. These should match. If not, further analysis will be required to determine why there is a discrepancy. Note that this value will start at the size of n, and decrease by one for each ballot that is marked in the tool.
+- [ ] 5.8.10. [**Reviewer 1**] Select and imprinted ID from the drop-down list, and request/retrieve the corresponding ballot.
 - [ ] 5.8.11. [**Reviewer 1**] Mark the ballot representation in the MVR tool based on your interpretation of the physical ballot, then click the "Submit for Verification" button.
 - [ ] 5.8.12. [**Reviewer 2**] Review and verify the selections presented based on Reviewer 1 input. 
     * If there is consensus in marking, click the "Confirmed" button.
     * If there is disagreement, Reviewer 2 (in discussion with Reviewing 1) may elect to click the "Revise Selections" button. If consensus can be reached, the ballot should be re-marked, and submitted. See the next bullet if consensus cannot be reached.
     * If consensus cannot be achieved, click the "No Consensus" button.  Assuming this button was clicked intentionally, click the "Confirmed. No Consensus. Submit blank ballot." button.
 - [ ] 5.8.13. Reviewer 1 or 2 may click the "Continue" button after reviewing the comparison of the literal and processed ballots. This will return the tool to the Mark Ballot Imprinted ID selection page.
-- [ ] 5.8.14. Repeat steps 5.8.10 thru 5.8.13 until all ballots have been marked. After final ballot submission, you should see a screen that reads "Thank you. All ballots have been marked."
+- [ ] 5.8.14. Repeat Steps 5.8.10 thru 5.8.13 until all ballots have been marked. After final ballot submission, you should see a screen that reads "Thank you. All ballots have been marked."
 - [ ] 5.8.15. Click the Export Contest link, or browse to http://localhost:8887/export-contest
 - [ ] 5.8.16. Use the buttons near the bottom of the page to download the `mvr_output.json` and `mvr_ballots.csv` files. Save these (or move them after saving) to `c:\rcv-data\bccr`. You'll now complete the workbook and audit process.
 
 <div id='id-section5.9'/>
 
 ### 5.9. Complete the Audit
-- [ ] 5.9.1. Return to the Jupyter Notebook tab/window in your browser (from step 5.6.15), and navigate to the cell following the header "Read the audited sample data". This directly follows the cell that wrote the sample CSV file in notebook cell #22. The comment in the cell reads "# Read MVR data".
-- [ ] 5.9.2. Click the play button near the top of the notebook. Use this play button to progress through each successive cell (one cell at a time), up to an including the "Log the status of the audit" cell. 
-- [ ] 5.9.3. Review the audit results in cell 27. Specifically, review the contest audit status.
+- [ ] 5.9.1. Return to the Jupyter Notebook tab/window in your browser (from Step 5.6.15), and navigate to the cell following the header "Read the audited sample data". This directly follows the cell that wrote the sample CSV file in Cell #22 in the notebook. The comment in the cell reads "# Read MVR data".
+- [ ] 5.9.2. Click the play button near the top of the notebook. Use this play button to progress through each successive cell (one cell at a time), up to and including the "Log the status of the audit" cell. 
+- [ ] 5.9.3. Review the audit results in Cell #27. Specifically, review the contest audit status.
   * Audit COMPLETE will indicate the audit completed, and the results as scored were confirmed to be within the risk limit for the audit.
   * Audit INCOMPLETE indicates that the audit has found issues beyond the risk limit.
 - [ ] 5.9.4. Press the save button in the notebook to save the current state and output in the notebook, including the results.
 
 <div id='id-section5.10'/>
 
-### 5.10. Stop Container and Backup the Data Generated from the RLA
-- [ ] 5.10.1 Return to the console you opened in section 5.2. If that was closed, from a command prompt (`cmd.exe`) run the following command to connect to the container:
+### 5.10. Stop Container and Back Up the Data Generated from the RLA
+- [ ] 5.10.1 Return to the console you opened in Section 5.2. If that was closed, from a command prompt (`cmd.exe`) run the following command to connect to the container:
     ```
     docker exec -it bc-rla /bin/bash
     ```
@@ -269,7 +269,7 @@ The following tools are used to perform the Boulder County RCV RLA process. They
     cd /rcv-data
     tar -cvf bc-rla_<contest>_<yyyy-mm-dd>.tar bccr
     ```
-- [ ] 5.10.4 Stop the docker container from a command prompt (opening a new one if necessary via `cmd.exe`):
+- [ ] 5.10.3 Stop the docker container from a command prompt (opening a new one if necessary via `cmd.exe`):
     ```
     docker stop bc-rla
     ```
@@ -293,5 +293,5 @@ ___
 ___
 
 ## 7. General Security Notes and Considerations
-* While access to the containerized resources is via http as opposed to https, it is important to note that access is restricted only to the local system (i.e. only the local system can connect to exposed ports in the container). There is no network transmission of data to perform this process.
+* Although access to the containerized resources is via HTTP as opposed to HTTPS, it is important to note that access is restricted to only the local system (i.e. only the local system can connect to exposed ports in the container). There is no network transmission of data to perform this process.
 * The MVR tool is an alpha version developed several years ago by Dan King. There are currently multiple vulnerable components used to support this node.js application. However, given the container access restrictions and the intentional lack of network access to this container, the risk of using known vulnerable components in the container was deemed acceptable. 
