@@ -1,6 +1,6 @@
 import os
 
-def split_sample_for_mvr(sample_file_count)
+def split_sample_for_mvr(sample_file_count):
     for i,chunk in enumerate(pd.read_csv(SAMPLE_OUTPUT_FILE_PATH, chunksize=sample_file_count)):
         chunk.to_csv('sample_group_{}_of_{}{}.csv'.format(i+1,BC_MVR_COUNT,DTM_SUFFIX), index=False)
     print(f'Created {BC_MVR_COUNT} sample files named sample_group_<n>_of_{BC_MVR_COUNT}{DTM_SUFFIX}.csv.')
