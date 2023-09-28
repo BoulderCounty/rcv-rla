@@ -79,6 +79,6 @@ def create_mvr_contest_json(contest, mvr_contest_json_file_name):
         mvr_contest_json_file.write(json.dumps(mvr_contest))
 
     if os.path.isfile(f'{mvr_contest_json_file_name}'):
-        return("SUCCESS - Created MVR contest json file: {mvr_contest_json_file_name}.")
+        return(f"SUCCESS - Created MVR contest json file: {mvr_contest_json_file_name}.", mvr_contest)
     else:
-        return("ERROR - Unable to create or find MVR contest json file: {mvr_contest_json_file_name}.")
+        return(f"ERROR - Unable to create or find MVR contest json file: {mvr_contest_json_file_name}.", {"ERROR"})
