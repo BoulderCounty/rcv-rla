@@ -1,31 +1,34 @@
 import os
+import json
+import pandas as pd
 
-def split_sample_for_mvr(sample_file_count):
-    for i,chunk in enumerate(pd.read_csv(SAMPLE_OUTPUT_FILE_PATH, chunksize=sample_file_count)):
-        chunk.to_csv('sample_group_{}_of_{}{}.csv'.format(i+1,BC_MVR_COUNT,DTM_SUFFIX), index=False)
-    print(f'Created {BC_MVR_COUNT} sample files named sample_group_<n>_of_{BC_MVR_COUNT}{DTM_SUFFIX}.csv.')
+def split_sample_for_mvr(samples_per_file, sample_output_file_path, file_write_path, mvr_stations, dtm_suffix):
+    print(f'Splitting sample file into {mvr_stations} files, with {samples_per_file} ballots per file.\nThe last file may contain fewer based on division across stations.')
+    for i,chunk in enumerate(pd.read_csv(sample_output_file_path, chunksize=samples_per_file)):
+        chunk.to_csv('{}sample_group_{}_of_{}{}.csv'.format(file_write_path,i+1,mvr_stations,dtm_suffix), index=False)
+    print(f'Created {mvr_stations} sample files named sample_group_<n>_of_{mvr_stations}{dtm_suffix}.csv.')
 
-def merge_mvr_file_segments(num_mvr_files, sample_size, mvr_file_name):
+def merge_mvr_file_segments(num_mvr_files, sample_size, mvr_file_name, file_write_path):
     print(f"\nConfirming presence of expected quantity and file names of MVR input files.")
 
     mvr_file_errors = False
 
     for x in range(1, num_mvr_files+1):
-        if os.path.isfile(f'./mvr_{x}_of_{num_mvr_files}.json'):
+        if os.path.isfile(f'{file_write_path}mvr_{x}_of_{num_mvr_files}.json'):
             print(f"  - Found expected input file {x} of {num_mvr_files} (mvr_{x}_of_{num_mvr_files}.json)")
         else:
-            print(f"  - ERROR - Cannot file MVR json file mvr_{x}_of_{num_mvr_files}.json")
+            print(f"  - ERROR - Cannot find file MVR json file mvr_{x}_of_{num_mvr_files}.json")
             mvr_file_errors = True
 
     if mvr_file_errors == True:
         print(f"\n\u2718 An error occurred reading expected input files. See above output, correct the issue, and try again.\n")
-        quit(1)
+        return(False)
 
     print(f"\nOriginal sample size is {sample_size}. Final count from merged MVR ballot data should match this count.\n")
 
     for x in range(1, num_mvr_files+1):
         # Open JSON file
-        mvr_input_file = open(f'./mvr_{x}_of_{num_mvr_files}.json')
+        mvr_input_file = open(f'{file_write_path}mvr_{x}_of_{num_mvr_files}.json')
 
         # Read JSON into dictionary
         if x == 1:
@@ -52,4 +55,30 @@ def merge_mvr_file_segments(num_mvr_files, sample_size, mvr_file_name):
         print(f"\u2718 FAILURE - Merged MVR data contains {len(mvr_data['ballots'])}, but the expected count was {sample_size}.\n")
 
     with open(mvr_file_name, 'w') as mvr_output_file:
-        mvr_output_file.write(json.dumps(mvr_data)
+        mvr_output_file.write(json.dumps(mvr_data))
+
+    return(True)
+
+def create_mvr_contest_json(contest, mvr_contest_json_file_name):
+    mvr_contest = {"contests": [{}],"candidates":[]}
+
+    mvr_con_id = next(iter(contest))
+    mvr_con_desc = contest[mvr_con_id]['name']
+
+    mvr_contest["contests"][0]["description"] = mvr_con_desc
+    mvr_contest["contests"][0]["id"] = int(mvr_con_id)
+
+    for cand_id,cand_desc in contest[mvr_con_id]["candidate_info"].items():
+        new_candidate = {}
+        new_candidate["description"] = cand_desc
+        new_candidate["id"] = int(cand_id)
+        new_candidate["type"] = "Regular"
+        mvr_contest["candidates"].append(new_candidate)
+
+    with open(mvr_contest_json_file_name, 'w') as mvr_contest_json_file:
+        mvr_contest_json_file.write(json.dumps(mvr_contest))
+
+    if os.path.isfile(f'{mvr_contest_json_file_name}'):
+        return("SUCCESS - Created MVR contest json file: {mvr_contest_json_file_name}.")
+    else:
+        return("ERROR - Unable to create or find MVR contest json file: {mvr_contest_json_file_name}.")
