@@ -17,7 +17,7 @@ ___
     5.4. [Generate the Assertions to Test](#id-section5.4)<br>
     5.5. [Generate the Manifest Card Count](#id-section5.5)<br>
     5.6. [Generate the RLA Ballot Sample](#id-section5.6)<br>
-    5.7. [Generate a Contest File for the MVR Tool](#id-section5.7)<br>
+    5.7. [Review the Contest File Generated for the MVR Tool](#id-section5.7)<br>
     5.8. [Run the Manual Vote Recorder Tool for Sample Comparison](#id-section5.8)<br>
     5.9. [Complete the Audit](#id-section5.9)<br>
     5.10. [Stop Container and Backup the Data Generated from the RLA](#id-section5.10)
@@ -217,18 +217,15 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 
 <div id='id-section5.7'/>
 
-### 5.7. Generate a Contest File for the MVR Tool
-- [ ] 5.7.1. Navigate to http://localhost:8887/load-contest in a web browser.
-- [ ] 5.7.2. Open Notepad on your workstation, and copy the JSON starter content from the contest.json frame in the MVR tool into Notepad.
-- [ ] 5.7.3. Edit the contest and candidates sections, including at least the fields indicated in the example contest.json content (updating all with your current contest information).
-- [ ] 5.7.4. Save the file as `contest.json` in `c:\rcv-data\bccr`.
+### 5.7. Review the Contest File Generated for the MVR Tool
+- [ ] 5.7.1. Following sample file creation, the MVR contest.json file will be created to structure the data in the format expected by the MVR tool. This occurs just prior to the header "Boulder County Distributed MVR Process" in the Notebook. Verify the output reads SUCCESS - Created MVR contest json file: <path>/mvr_contest_data_<date_and_time>.json. This file will be loaded into the MVR tool.
 
 <div id='id-section5.8'/>
 
 ### 5.8. Run the Manual Vote Recorder Tool for Sample Comparison
 - [ ] 5.8.1. This process requires that two reviewers participate: one to mark the ballot representations, and one to review and confirm the marks are representative of what is on the ballot. Gather the two reviewers before continuing this process.
-- [ ] 5.8.2. Navigate to http://localhost:8887/load-contest in a web browser if you are not already there from Step 5.7.
-- [ ] 5.8.3. Click the `Choose File` button under `Contest (JSON)`, and select the file you created in Step 5.7.4.
+- [ ] 5.8.2. Navigate to http://localhost:8887/load-contest in a web browser.
+- [ ] 5.8.3. Click the `Choose File` button under `Contest (JSON)`, and select the file you verified had been created in Step 5.7.1.
 - [ ] 5.8.4. Click the `Choose File` button under `Ballots (CSV)`, and select the file that was created in Step 5.6.11.
 - [ ] 5.8.5. Click the `Upload Contest Details` button.
 - [ ] 5.8.6. Review the confirmation page, and recognize that if you create a new contest in the tool it will end any contest already being tested - i.e. _this tool is intended to process one contest at a time!_
@@ -244,7 +241,12 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 - [ ] 5.8.13. Reviewer 1 or 2 may click the "Continue" button after reviewing the comparison of the literal and processed ballots. This will return the tool to the Mark Ballot Imprinted ID selection page.
 - [ ] 5.8.14. Repeat Steps 5.8.10 thru 5.8.13 until all ballots have been marked. After final ballot submission, you should see a screen that reads "Thank you. All ballots have been marked."
 - [ ] 5.8.15. Click the Export Contest link, or browse to http://localhost:8887/export-contest
-- [ ] 5.8.16. Use the buttons near the bottom of the page to download the `mvr_output.json` and `mvr_ballots.csv` files. Save these (or move them after saving) to `c:\rcv-data\bccr`. You'll now complete the workbook and audit process.
+- [ ] 5.8.16. Use the buttons near the bottom of the page to download the `mvr_output.json` and `mvr_ballots.csv` files. Save these locally on the MVR station.
+- [ ] 5.8.17. Rename the files you just downloaded as follows, where x should be replaced with the current MVR station ID, and y should be repalced with the total number of MVR stations in use.
+    * `mvr_output.json` should be renamed `mvr_x_of_y.json`
+    * `mvr_ballots.csv` should be renamed `mvr_ballots_x_of_y.json`
+- [ ] 5.8.18. Copy these files to sanitized USB media (per BCCR media sanitization processes) and transfer them to the RLA RCV processing workstation, then copying all files into the volume mount location (expected to be c:\rcv-rla\bccr\). Take this opportunity to sanity check file names and ensure there are no spelling mistakes, duplicates, or missing files. The critical files are the `mvr_x_of_y.json` files.
+- [ ] 5.8.19.  Proceed with the Jupyter Notebook step-by-step process. Use of the MVR stations has concluded for now.
 
 <div id='id-section5.9'/>
 
