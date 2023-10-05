@@ -163,6 +163,7 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 - [ ] 5.2.4. Refresh local copies of code in the container from the main repository in the event the notebook or other files have been updated. Only do this once when starting the RLA process, otherwise your notebook (and any work underway) may be overwritten.
     ```
     cd /opt/BoCo-RCV-RLA
+    git stash -m "<Enter a descriptive message, ideally including the date and time for future reference>"
     git pull
     ```
 
