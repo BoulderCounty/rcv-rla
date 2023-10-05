@@ -161,6 +161,7 @@ function redrawContests() {
         contestJSON[contest.id].name = contestMetadata.Description;
         contestJSON[contest.id].cards = contest.entries.length;
         contestJSON[contest.id].candidates = [];
+        contestJSON[contest.id].candidate_info = {};
         contestJSON[contest.id].winner = [];
         if (Array.isArray(irvResults.winner)){
             contestJSON[contest.id].n_winners = irvResults.winner.length;
@@ -168,14 +169,17 @@ function redrawContests() {
             contestJSON[contest.id].n_winners = 1;
         }
         for (c of candidates.concat([dummyCandidateExhausted ])) {
-           const candidateRow = add(candidateTable,"tr",c.Id==irvResults.winner?"winner":"");
-           add(candidateRow,"td").innerText = c.Id || "";
-           add(candidateRow,"td").innerText = c.Description;
-           if (c.Description !== "Exhausted"){ contestJSON[contest.id].candidates.push(String(c.Id)); }
-           if (c.Id == irvResults.winner){ contestJSON[contest.id].winner.push(String(c.Id)); }
-           for (count of irvResults.tallys) {
-               add(candidateRow,"td").innerText = count[c.Id || c.Description] || "";
-           }
+            const candidateRow = add(candidateTable,"tr",c.Id==irvResults.winner?"winner":"");
+            add(candidateRow,"td").innerText = c.Id || "";
+            add(candidateRow,"td").innerText = c.Description;
+            if (c.Description !== "Exhausted"){ 
+                contestJSON[contest.id].candidates.push(String(c.Id)); 
+                contestJSON[contest.id].candidate_info[String(c.Id)] = String(c.Description)
+            }
+            if (c.Id == irvResults.winner){ contestJSON[contest.id].winner.push(String(c.Id)); }
+            for (count of irvResults.tallys) {
+                add(candidateRow,"td").innerText = count[c.Id || c.Description] || "";
+            }
         }
         add(contestDiv,"br");
         add(contestDiv,"i",).innerText = "JSON to copy for Boulder County RLA Setup Task #2 in the Jupyter Notebook (copy between lines):"
