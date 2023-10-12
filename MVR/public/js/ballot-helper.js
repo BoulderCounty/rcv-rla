@@ -115,7 +115,7 @@ function submit_for_verification_with_confirmation() {
         let message_body = document.createElement('div')
         $(message_body).addClass('alert alert-warning')
         let message_details = document.createElement('div')
-        let message_h1 = $('<h1>').text('Reviewer #1 - Confirm Submission').appendTo(message_details)
+        let message_h1 = $('<h1>').text('Audit Board (#1) - Confirm Submission').appendTo(message_details)
         var message_div = $('<div>')
             .append('TODO SHOW RANKING RESULTS')
             .appendTo(message_details)
@@ -139,7 +139,7 @@ function submit_for_verification_with_confirmation() {
 
                     let message_body = document.createElement('div')
                     $(message_body).addClass('alert alert-info')
-                    let message_h1 = $('<h1>').text('Reviewer #2').appendTo(message_body)
+                    let message_h1 = $('<h1>').text('Audit Board (#2)').appendTo(message_body)
                     let message_h2 = $('<h2>').text('The ballot is now read-only. Click "Edit Ballot" to make changes.').appendTo(message_body)
                     bootbox.alert({
                         size: 'large',
@@ -230,7 +230,7 @@ function enable_ballot() {
     $("#ballot-container").addClass("alert-success")
 
     // Update instructions to end user
-    $("#reviewer-2").html("<h1>Reviewer #2 - Revise and verify</h1>")
+    $("#reviewer-2").html("<h1>Audit Board (#2) - Revise and verify</h1>")
     
     // Enable ballot-id dropdown and ballot checkboxes
     $("#dropdown-container").removeClass("hidden")
@@ -251,7 +251,7 @@ function contest_not_on_ballot() {
     let message_body = document.createElement('div')
     $(message_body).addClass('alert alert-info')
     let message_details = document.createElement('div')
-    $('<h2>').text('Reviewer #2, please confirm that the contest is not on the ballot.').appendTo(message_details)
+    $('<h2>').text('Audit Board (#2), please confirm that the contest is not on the ballot.').appendTo(message_details)
     $('<div>')
         .appendTo(message_details)
     $(message_details).appendTo(message_body)
@@ -283,7 +283,7 @@ function no_consensus() {
     let message_body = document.createElement('div')
     $(message_body).addClass('alert alert-info')
     let message_details = document.createElement('div')
-    $('<h2>').text('Reviewer #2, please confirm that there is no consensus with Reviewer #1. The selections will be cleared and a blank ballot will be submitted.').appendTo(message_details)
+    $('<h2>').text('Audit Board (#2), please confirm that there is no consensus with Audit Board (#1). The selections will be cleared and a blank ballot will be submitted.').appendTo(message_details)
     $('<div>')
         .appendTo(message_details)
     $(message_details).appendTo(message_body)
