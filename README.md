@@ -23,6 +23,7 @@ ___
     5.10. [Stop Container and Backup the Data Generated from the RLA](#id-section5.10)
 6. [Testing Reproduction](#id-section6)
 7. [General Security Notes and Considerations](#id-section7)
+8. [Warranty](#id-section8)
 
 <div id='id-section1'/>
 
@@ -297,4 +298,17 @@ ___
 
 ## 7. General Security Notes and Considerations
 * Although access to the containerized resources is via HTTP as opposed to HTTPS, it is important to note that access is restricted to only the local system (i.e. only the local system can connect to exposed ports in the container). There is no network transmission of data to perform this process.
-* The MVR tool is an alpha version developed several years ago by Dan King. There are currently multiple vulnerable components used to support this node.js application. However, given the container access restrictions and the intentional lack of network access to this container, the risk of using known vulnerable components in the container was deemed acceptable. 
+* The MVR tool is an alpha version developed several years ago by Dan King. There are currently multiple vulnerable components used to support this node.js application. However, given the container access restrictions and the intentional lack of network access to this container, the risk of using known vulnerable components in the container was deemed acceptable.
+
+
+<div id='id-section8'/>
+<br><br>
+
+___
+
+## 8. Warranty
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+This permission notice shall be included in all copies or substantial portions of the Software.
+
+The Software is provided “as is”, without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the Software.
