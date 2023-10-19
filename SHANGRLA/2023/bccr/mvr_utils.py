@@ -55,10 +55,16 @@ def merge_mvr_file_segments(num_mvr_files, sample_size, mvr_file_name, file_writ
     else:
         print(f"\u2718 FAILURE - Merged MVR data contains {len(mvr_data['ballots'])}, but the expected count was {sample_size}.\n")
 
-    with open(mvr_file_name, 'w') as mvr_output_file:
-        mvr_output_file.write(json.dumps(mvr_data))
+    if os.path.isfile(mvr_file_name):
+        print(f'*** WARNING ***\nThe merged output MVR file {mvr_file_name} already exists.')
+        print(f'Please remove and re-run this step.')
+        return(False)
+    else:
+        with open(mvr_file_name, 'w') as mvr_output_file:
+            mvr_output_file.write(json.dumps(mvr_data))
+        return(True)
 
-    return(True)
+
 
 def create_mvr_contest_json(contest, mvr_contest_json_file_name):
     mvr_contest = {"contests": [{}],"candidates":[]}
