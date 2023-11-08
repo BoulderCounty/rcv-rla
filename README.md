@@ -142,11 +142,11 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 ### 5.2. Activate the RLA Environment
 - [ ] 5.2.1. From a command line (e.g. `cmd.exe`), pull the current Docker container. Unless there are known changes to the container, this only has to be performed once. This command pulls the container image that is tagged `latest` (i.e. the most recently updated image in the repository):
     ```
-    docker pull us-west3-docker.pkg.dev/rule4-container-registry/boco-rcv-rla/rcv-rla:latest
+    docker pull public.ecr.aws/x3b0g6w0/rcv-rla:latest
     ```
 - [ ] 5.2.2. Start the container (adjusting the local path `/c/rcv-data` if necessary based on where the local folder was created). Note that this format is required for the docker volume mount (vs. native c:\ type paths):
     ```
-    docker run -itd --name bc-rla -p 127.0.0.1:8888:8888 -p 127.0.0.1:8887:8887 -v /c/rcv-data:/rcv-data/ us-west3-docker.pkg.dev/rule4-container-registry/boco-rcv-rla/rcv-rla
+    docker run -itd --name bc-rla -p 127.0.0.1:8888:8888 -p 127.0.0.1:8887:8887 -v /c/rcv-data:/rcv-data/ public.ecr.aws/x3b0g6w0/rcv-rla
     ```
 
     Command Explanation:
@@ -155,7 +155,7 @@ The following tools are used to perform the Boulder County RCV RLA process. They
     * `-p 127.0.0.1:8888:8888` : _Accept connections only on the Docker host's local interface on port 8888, and map to port 8888 in the container (used for the Jupyter Notebook)_
     * `-p 127.0.0.1:8887:8887` : _Accept connections only on the Docker host's local interface on port 8887, and map to port 8887 in the container (used for the MVR Tool node.js application and CVR-to-RAIRE conversion tool)_
     * `-v /c/rcv-data:/rcv-data/` : _Mount the local folder /c/rcv-data (c:\rcv-data) to /rcv-data in the container._
-    * `us-west3-docker.pkg.dev/rule4-container-registry/boco-rcv-rla/rcv-rla` : _The container image to run (pulled in the previous step)_
+    * `public.ecr.aws/x3b0g6w0/rcv-rla` : _The container image to run (pulled in the previous step)_
 - [ ] 5.2.3. Connect to the terminal/shell to in preparation for using the irvaudit tool to create the assertions to test. If you named your container something other than bc-rla, change the name as appropriate in the following command:
 
     ```
