@@ -1,7 +1,7 @@
 FROM debian:bookworm-slim
 
 ARG BOOST_VERSION=1.82.0
-ARG BCREPO=https://github.com/Rule4Inc/BoCo-RCV-RLA.git
+ARG BCREPO=https://github.com/BoulderCounty/rcv-rla.git
 ARG PIPENV_VENV_IN_PROJECT=true
 
 # Install package dependencies
@@ -73,7 +73,8 @@ RUN cd /tmp && \
 # Setup SHANGRLA environment environments (via pipenv) for 2020 and 2023 code
 # Prep the node envrionment for the MVR tool
 RUN cd /opt && \
-    git clone https://github.com/Rule4Inc/BoCo-RCV-RLA.git && \
+    git clone ${BCREPO} && \
+    mv rcv-rla BoCo-RCV-RLA && \
     chmod 750 /opt/BoCo-RCV-RLA/BoCo-Infra/boco-startup.sh && \
     ln -s /opt/BoCo-RCV-RLA/BoCo-Infra/boco-startup.sh /usr/local/sbin/boco-startup.sh && \
     cd /opt/BoCo-RCV-RLA/IRV-RLA && \
