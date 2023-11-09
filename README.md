@@ -185,7 +185,7 @@ The following tools are used to perform the Boulder County RCV RLA process. They
 - [ ] 5.4.2. Change to the bccr directory in the container shell, and run the irvaudit assertion generator to create the assertion file:
     ```
     cd /rcv-data/bccr
-    irvaudit -rep_ballots RAIRE.txt -r 0.05 -agap 0.0 -alglog -simlog -json bc-assertions.json 2>&1 | tee irvaudit_$(date +"%Y_%m_%d_%I_%M_%p").log
+    irvaudit -rep_ballots RAIRE.txt -r 0.05 -agap 0.0 -alglog -simlog -json bc-assertions.json 2>&1 | tee /rcv-data/bccr/irvaudit_$(date +"%Y_%m_%d_%I_%M_%p").log
     ```
 - [ ] 5.4.3. Leave this shell open, you will use it later in the process to backup contest data.
 
